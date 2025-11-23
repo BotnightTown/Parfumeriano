@@ -1,0 +1,702 @@
+[
+  {
+    "id": 1,
+    "name": "Moschino Toy Boy",
+    "brand": "Moschino",
+    "year": 2019,
+    "description": "Moschino Toy Boy is a bold and playful fragrance that combines Spicy, Woody, and Floral notes for a modern masculine scent. It embodies confidence and charm, leaving a lasting impression with its unique blend of elegance and energy.",
+    "capacity": [50, 100, 250],
+    "images": {
+      "main": "/images/Product/Moschino Toy Boy.jpg",
+      "list": [
+        "/images/Product/Moschino Toy Boy-1.jpg",
+        "/images/Product/Moschino Toy Boy-2.jpg",
+        "/images/Product/Moschino Toy Boy-3.jpg",
+        "/images/Product/Moschino Toy Boy-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 150,
+      "sale": null
+    },
+    "attributes": {
+      "type": "Eau de Toilette",
+      "gender": "Man",
+      "aroma": "Woody",
+      "stability": "Medium",
+      "classification": "масова"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Moschino Fresh Mood",
+    "brand": "Moschino",
+    "year": 2020,
+    "description": "Moschino Fresh Mood combines Citrus, Floral, and Green notes for a refreshing and lively scent. It conveys energy and optimism, making it perfect for daily wear and social occasions.",
+    "capacity": [25, 50, 100, 500],
+    "images": {
+      "main": "/images/Product/Moschino Fresh Mood.jpg",
+      "list": [
+        "/images/Product/Moschino Fresh Mood-1.jpg",
+        "/images/Product/Moschino Fresh Mood-2.jpg",
+        "/images/Product/Moschino Fresh Mood-3.jpg",
+        "/images/Product/Moschino Fresh Mood-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 165,
+      "sale": 150
+    },
+    "attributes": {
+      "type": "Eau de Toilette",
+      "gender": "Unisex",
+      "aroma": "Citrus",
+      "stability": "Light",
+      "classification": "ніша"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Gucci Bloom",
+    "brand": "Gucci",
+    "year": 2017,
+    "description": "Gucci Bloom reveals a rich Floral character built around natural Jasmine and Tuberose, creating a smooth and immersive aroma. The fragrance feels fresh yet deep, offering a balanced expression of femininity that is both modern and timeless.",
+    "capacity": [30, 50, 100],
+    "images": {
+      "main": "/images/Product/Gucci Bloom.jpg",
+      "list": [
+        "/images/Product/Gucci Bloom-1.jpg",
+        "/images/Product/Gucci Bloom-2.jpg",
+        "/images/Product/Gucci Bloom-3.jpg",
+        "/images/Product/Gucci Bloom-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 200,
+      "sale": 180
+    },
+    "attributes": {
+      "type": "Eau de Parfum",
+      "gender": "Woman",
+      "aroma": "Floral",
+      "stability": "Strong",
+      "classification": "елітна"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Gucci Bamboo Essence",
+    "brand": "Gucci",
+    "year": 2018,
+    "description": "Gucci Bamboo Essence is a sophisticated fragrance that blends Woody, Powdery, and Floral notes. It radiates elegance and strength, making a refined statement in both casual and formal settings.",
+    "capacity": [50, 100, 250, 500],
+    "images": {
+      "main": "/images/Product/Gucci Bamboo Essence.jpg",
+      "list": [
+        "/images/Product/Gucci Bamboo Essence-1.jpg",
+        "/images/Product/Gucci Bamboo Essence-2.jpg",
+        "/images/Product/Gucci Bamboo Essence-3.jpg",
+        "/images/Product/Gucci Bamboo Essence-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 215,
+      "sale": null
+    },
+    "attributes": {
+      "type": "Eau de Parfum",
+      "gender": "Woman",
+      "aroma": "Woody",
+      "stability": "Medium",
+      "classification": "середній сегмент"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Dior Sauvage",
+    "brand": "Dior",
+    "year": 2015,
+    "description": "Dior Sauvage delivers a clean and crisp scent shaped by Citrus, Pepper, and Earthy accords that create a strong yet versatile profile. It provides a confident trail that feels refined and grounded.",
+    "capacity": [60, 100, 200],
+    "images": {
+      "main": "/images/Product/Dior Sauvage.jpg",
+      "list": [
+        "/images/Product/Dior Sauvage-1.jpg",
+        "/images/Product/Dior Sauvage-2.jpg",
+        "/images/Product/Dior Sauvage-3.jpg",
+        "/images/Product/Dior Sauvage-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 175,
+      "sale": null
+    },
+    "attributes": {
+      "type": "Eau de Toilette",
+      "gender": "Man",
+      "aroma": "Fresh",
+      "stability": "Long",
+      "classification": "елітна"
+    }
+  },
+  {
+    "id": 6,
+    "name": "Dior Homme Intense",
+    "brand": "Dior",
+    "year": 2011,
+    "description": "Dior Homme Intense is a rich and refined fragrance that combines Iris, Amber, and Woody notes. It embodies sophistication and charm, leaving a lasting impression with a luxurious scent profile.",
+    "capacity": [50, 100, 250],
+    "images": {
+      "main": "/images/Product/Dior Homme Intense.jpg",
+      "list": [
+        "/images/Product/Dior Homme Intense-1.jpg",
+        "/images/Product/Dior Homme Intense-2.jpg",
+        "/images/Product/Dior Homme Intense-3.jpg",
+        "/images/Product/Dior Homme Intense-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 190,
+      "sale": 175
+    },
+    "attributes": {
+      "type": "Eau de Parfum",
+      "gender": "Man",
+      "aroma": "Woody",
+      "stability": "Strong",
+      "classification": "ніша"
+    }
+  },
+  {
+    "id": 7,
+    "name": "Chanel Chance Eau Tendre",
+    "brand": "Chanel",
+    "year": 2010,
+    "description": "Chanel Chance Eau Tendre offers a gentle and luminous fragrance built around Fruity and Soft Floral tones. Its delicate composition brings a light sense of warmth and freshness for everyday elegance.",
+    "capacity": [50, 100, 250],
+    "images": {
+      "main": "/images/Product/Chanel Chance Eau Tendre.jpg",
+      "list": [
+        "/images/Product/Chanel Chance Eau Tendre-1.jpg",
+        "/images/Product/Chanel Chance Eau Tendre-2.jpg",
+        "/images/Product/Chanel Chance Eau Tendre-3.jpg",
+        "/images/Product/Chanel Chance Eau Tendre-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 210,
+      "sale": 190
+    },
+    "attributes": {
+      "type": "Eau de Toilette",
+      "gender": "Woman",
+      "aroma": "Fruity",
+      "stability": "Medium",
+      "classification": "елітна"
+    }
+  },
+  {
+    "id": 8,
+    "name": "Chanel Bleu De Chanel",
+    "brand": "Chanel",
+    "year": 2010,
+    "description": "Chanel Bleu De Chanel combines Citrus, Woody, and Aromatic notes to create a versatile fragrance. It conveys confidence and elegance, making it suitable for both day and night wear.",
+    "capacity": [50, 100, 200, 500],
+    "images": {
+      "main": "/images/Product/Chanel Bleu De Chanel.jpg",
+      "list": [
+        "/images/Product/Chanel Bleu De Chanel-1.jpg",
+        "/images/Product/Chanel Bleu De Chanel-2.jpg",
+        "/images/Product/Chanel Bleu De Chanel-3.jpg",
+        "/images/Product/Chanel Bleu De Chanel-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 220,
+      "sale": 200
+    },
+    "attributes": {
+      "type": "Eau de Toilette",
+      "gender": "Man",
+      "aroma": "Woody",
+      "stability": "Long",
+      "classification": "елітна"
+    }
+  },
+  {
+    "id": 9,
+    "name": "Moschino Funny!",
+    "brand": "Moschino",
+    "year": 2007,
+    "description": "Moschino Funny! is a playful fragrance blending Fruity, Floral, and Sweet notes for an energetic and vibrant personality. It delivers a cheerful and uplifting aroma that suits casual occasions.",
+    "capacity": [30, 50, 100],
+    "images": {
+      "main": "/images/Product/Moschino Funny!.jpg",
+      "list": [
+        "/images/Product/Moschino Funny!-1.jpg",
+        "/images/Product/Moschino Funny!-2.jpg",
+        "/images/Product/Moschino Funny!-3.jpg",
+        "/images/Product/Moschino Funny!-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 160,
+      "sale": null
+    },
+    "attributes": {
+      "type": "Eau de Toilette",
+      "gender": "Woman",
+      "aroma": "Fruity",
+      "stability": "Light",
+      "classification": "масова"
+    }
+  },
+  {
+    "id": 10,
+    "name": "Gucci Flora Gorgeous Gardenia",
+    "brand": "Gucci",
+    "year": 2013,
+    "description": "Gucci Flora Gorgeous Gardenia is a delicate Floral fragrance with notes of Gardenia and Red Berries, offering a fresh and feminine scent that radiates elegance and charm.",
+    "capacity": [50, 100, 250],
+    "images": {
+      "main": "/images/Product/Gucci Flora Gorgeous Gardenia.jpg",
+      "list": [
+        "/images/Product/Gucci Flora Gorgeous Gardenia-1.jpg",
+        "/images/Product/Gucci Flora Gorgeous Gardenia-2.jpg",
+        "/images/Product/Gucci Flora Gorgeous Gardenia-3.jpg",
+        "/images/Product/Gucci Flora Gorgeous Gardenia-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 205,
+      "sale": 185
+    },
+    "attributes": {
+      "type": "Eau de Parfum",
+      "gender": "Woman",
+      "aroma": "Floral",
+      "stability": "Medium",
+      "classification": "елітна"
+    }
+  },
+  {
+    "id": 11,
+    "name": "Dior Fahrenheit",
+    "brand": "Dior",
+    "year": 1988,
+    "description": "Dior Fahrenheit delivers a warm and bold fragrance built with Leather, Citrus, and Woody notes. It leaves a masculine and dynamic impression with long-lasting intensity.",
+    "capacity": [50, 100, 250],
+    "images": {
+      "main": "/images/Product/Dior Fahrenheit.jpg",
+      "list": [
+        "/images/Product/Dior Fahrenheit-1.jpg",
+        "/images/Product/Dior Fahrenheit-2.jpg",
+        "/images/Product/Dior Fahrenheit-3.jpg",
+        "/images/Product/Dior Fahrenheit-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 185,
+      "sale": 170
+    },
+    "attributes": {
+      "type": "Eau de Toilette",
+      "gender": "Man",
+      "aroma": "Woody",
+      "stability": "Strong",
+      "classification": "елітна"
+    }
+  },
+  {
+    "id": 12,
+    "name": "Chanel Coco Mademoiselle",
+    "brand": "Chanel",
+    "year": 2001,
+    "description": "Chanel Coco Mademoiselle is a sophisticated fragrance with Oriental and Floral notes, projecting elegance, freshness, and bold femininity in one luxurious composition.",
+    "capacity": [50, 100, 250],
+    "images": {
+      "main": "/images/Product/Chanel Coco Mademoiselle.jpg",
+      "list": [
+        "/images/Product/Chanel Coco Mademoiselle-1.jpg",
+        "/images/Product/Chanel Coco Mademoiselle-2.jpg",
+        "/images/Product/Chanel Coco Mademoiselle-3.jpg",
+        "/images/Product/Chanel Coco Mademoiselle-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 230,
+      "sale": 210
+    },
+    "attributes": {
+      "type": "Eau de Parfum",
+      "gender": "Woman",
+      "aroma": "Oriental",
+      "stability": "Strong",
+      "classification": "ніша"
+    }
+  },
+  {
+    "id": 13,
+    "name": "Moschino I Love Love",
+    "brand": "Moschino",
+    "year": 2004,
+    "description": "Moschino I Love Love is a fruity and energetic fragrance, combining Citrus and Floral notes to evoke happiness and joy for everyday casual wear.",
+    "capacity": [30, 50, 100],
+    "images": {
+      "main": "/images/Product/Moschino I Love Love.jpg",
+      "list": [
+        "/images/Product/Moschino I Love Love-1.jpg",
+        "/images/Product/Moschino I Love Love-2.jpg",
+        "/images/Product/Moschino I Love Love-3.jpg",
+        "/images/Product/Moschino I Love Love-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 155,
+      "sale": null
+    },
+    "attributes": {
+      "type": "Eau de Toilette",
+      "gender": "Woman",
+      "aroma": "Fruity",
+      "stability": "Light",
+      "classification": "масова"
+    }
+  },
+  {
+    "id": 14,
+    "name": "Gucci Guilty Pour Homme",
+    "brand": "Gucci",
+    "year": 2011,
+    "description": "Gucci Guilty Pour Homme is a seductive and modern fragrance combining Aromatic, Woody, and Spicy notes. It conveys confidence and bold masculinity.",
+    "capacity": [50, 90, 150],
+    "images": {
+      "main": "/images/Product/Gucci Guilty Pour Homme.jpg",
+      "list": [
+        "/images/Product/Gucci Guilty Pour Homme-1.jpg",
+        "/images/Product/Gucci Guilty Pour Homme-2.jpg",
+        "/images/Product/Gucci Guilty Pour Homme-3.jpg",
+        "/images/Product/Gucci Guilty Pour Homme-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 195,
+      "sale": 180
+    },
+    "attributes": {
+      "type": "Eau de Toilette",
+      "gender": "Man",
+      "aroma": "Spicy",
+      "stability": "Medium",
+      "classification": "елітна"
+    }
+  },
+  {
+    "id": 15,
+    "name": "Dior Poison Girl",
+    "brand": "Dior",
+    "year": 2016,
+    "description": "Dior Poison Girl is a daring and youthful fragrance with Floral, Fruity, and Sweet notes. It conveys charm, audacity, and a captivating feminine energy.",
+    "capacity": [30, 50, 100],
+    "images": {
+      "main": "/images/Product/Dior Poison Girl.jpg",
+      "list": [
+        "/images/Product/Dior Poison Girl-1.jpg",
+        "/images/Product/Dior Poison Girl-2.jpg",
+        "/images/Product/Dior Poison Girl-3.jpg",
+        "/images/Product/Dior Poison Girl-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 195,
+      "sale": 175
+    },
+    "attributes": {
+      "type": "Eau de Parfum",
+      "gender": "Woman",
+      "aroma": "Floral",
+      "stability": "Strong",
+      "classification": "ніша"
+    }
+  },
+  {
+    "id": 16,
+    "name": "Chanel Allure Homme Sport",
+    "brand": "Chanel",
+    "year": 2004,
+    "description": "Chanel Allure Homme Sport delivers a fresh and invigorating fragrance with Citrus, Aquatic, and Woody notes. Perfect for active men seeking a clean and refined scent.",
+    "capacity": [50, 100, 200],
+    "images": {
+      "main": "/images/Product/Chanel Allure Homme Sport.jpg",
+      "list": [
+        "/images/Product/Chanel Allure Homme Sport-1.jpg",
+        "/images/Product/Chanel Allure Homme Sport-2.jpg",
+        "/images/Product/Chanel Allure Homme Sport-3.jpg",
+        "/images/Product/Chanel Allure Homme Sport-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 210,
+      "sale": null
+    },
+    "attributes": {
+      "type": "Eau de Toilette",
+      "gender": "Man",
+      "aroma": "Fresh",
+      "stability": "Medium",
+      "classification": "масова"
+    }
+  },
+  {
+    "id": 17,
+    "name": "Moschino Cheap & Chic",
+    "brand": "Moschino",
+    "year": 1995,
+    "description": "Moschino Cheap & Chic is a fun and youthful fragrance combining Floral and Fruity notes. It brings playfulness and casual elegance in one aroma.",
+    "capacity": [30, 50, 100],
+    "images": {
+      "main": "/images/Product/Moschino Cheap & Chic.jpg",
+      "list": [
+        "/images/Product/Moschino Cheap & Chic-1.jpg",
+        "/images/Product/Moschino Cheap & Chic-2.jpg",
+        "/images/Product/Moschino Cheap & Chic-3.jpg",
+        "/images/Product/Moschino Cheap & Chic-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 160,
+      "sale": 145
+    },
+    "attributes": {
+      "type": "Eau de Toilette",
+      "gender": "Woman",
+      "aroma": "Floral",
+      "stability": "Light",
+      "classification": "масова"
+    }
+  },
+  {
+    "id": 18,
+    "name": "Gucci Made to Measure",
+    "brand": "Gucci",
+    "year": 2013,
+    "description": "Gucci Made to Measure offers a tailored fragrance combining Spicy, Woody, and Aromatic notes. It expresses elegance, confidence, and versatility for modern men.",
+    "capacity": [50, 100, 200],
+    "images": {
+      "main": "/images/Product/Gucci Made to Measure.jpg",
+      "list": [
+        "/images/Product/Gucci Made to Measure-1.jpg",
+        "/images/Product/Gucci Made to Measure-2.jpg",
+        "/images/Product/Gucci Made to Measure-3.jpg",
+        "/images/Product/Gucci Made to Measure-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 200,
+      "sale": 185
+    },
+    "attributes": {
+      "type": "Eau de Toilette",
+      "gender": "Man",
+      "aroma": "Spicy",
+      "stability": "Strong",
+      "classification": "ніша"
+    }
+  },
+  {
+    "id": 19,
+    "name": "Dior Addict",
+    "brand": "Dior",
+    "year": 2002,
+    "description": "Dior Addict is a bold and intense fragrance with Oriental, Vanilla, and Floral notes. It leaves a strong impression and evokes luxury and confidence.",
+    "capacity": [30, 50, 100],
+    "images": {
+      "main": "/images/Product/Dior Addict.jpg",
+      "list": [
+        "/images/Product/Dior Addict-1.jpg",
+        "/images/Product/Dior Addict-2.jpg",
+        "/images/Product/Dior Addict-3.jpg",
+        "/images/Product/Dior Addict-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 220,
+      "sale": 200
+    },
+    "attributes": {
+      "type": "Eau de Parfum",
+      "gender": "Woman",
+      "aroma": "Oriental",
+      "stability": "Strong",
+      "classification": "елітна"
+    }
+  },
+  {
+    "id": 20,
+    "name": "Chanel Gabrielle",
+    "brand": "Chanel",
+    "year": 2017,
+    "description": "Chanel Gabrielle combines Floral, Fruity, and Green notes to create a luminous and radiant fragrance. It expresses modern femininity and elegance in every detail.",
+    "capacity": [50, 100, 250],
+    "images": {
+      "main": "/images/Product/Chanel Gabrielle.jpg",
+      "list": [
+        "/images/Product/Chanel Gabrielle-1.jpg",
+        "/images/Product/Chanel Gabrielle-2.jpg",
+        "/images/Product/Chanel Gabrielle-3.jpg",
+        "/images/Product/Chanel Gabrielle-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 225,
+      "sale": 205
+    },
+    "attributes": {
+      "type": "Eau de Parfum",
+      "gender": "Woman",
+      "aroma": "Floral",
+      "stability": "Medium",
+      "classification": "елітна"
+    }
+  },
+  {
+    "id": 21,
+    "name": "Moschino I Love Love Red",
+    "brand": "Moschino",
+    "year": 2005,
+    "description": "Moschino I Love Love Red is a vibrant and juicy fragrance combining Fruity and Floral notes. It energizes the wearer and leaves a cheerful and memorable scent trail.",
+    "capacity": [30, 50, 100],
+    "images": {
+      "main": "/images/Product/Moschino I Love Love Red.jpg",
+      "list": [
+        "/images/Product/Moschino I Love Love Red-1.jpg",
+        "/images/Product/Moschino I Love Love Red-2.jpg",
+        "/images/Product/Moschino I Love Love Red-3.jpg",
+        "/images/Product/Moschino I Love Love Red-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 165,
+      "sale": 150
+    },
+    "attributes": {
+      "type": "Eau de Toilette",
+      "gender": "Woman",
+      "aroma": "Fruity",
+      "stability": "Light",
+      "classification": "масова"
+    }
+  },
+  {
+    "id": 22,
+    "name": "Gucci Guilty Black",
+    "brand": "Gucci",
+    "year": 2013,
+    "description": "Gucci Guilty Black is a daring and sensual fragrance combining Spicy, Woody, and Floral notes. It projects confidence, elegance, and mysterious allure.",
+    "capacity": [50, 90, 150],
+    "images": {
+      "main": "/images/Product/Gucci Guilty Black.jpg",
+      "list": [
+        "/images/Product/Gucci Guilty Black-1.jpg",
+        "/images/Product/Gucci Guilty Black-2.jpg",
+        "/images/Product/Gucci Guilty Black-3.jpg",
+        "/images/Product/Gucci Guilty Black-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 210,
+      "sale": 195
+    },
+    "attributes": {
+      "type": "Eau de Toilette",
+      "gender": "Man",
+      "aroma": "Spicy",
+      "stability": "Strong",
+      "classification": "ніша"
+    }
+  },
+  {
+    "id": 23,
+    "name": "Dior Homme Cologne",
+    "brand": "Dior",
+    "year": 2007,
+    "description": "Dior Homme Cologne is a fresh and modern fragrance with Citrus and Musk notes. It delivers a light and elegant scent suitable for everyday wear.",
+    "capacity": [50, 100, 200],
+    "images": {
+      "main": "/images/Product/Dior Homme Cologne.jpg",
+      "list": [
+        "/images/Product/Dior Homme Cologne-1.jpg",
+        "/images/Product/Dior Homme Cologne-2.jpg",
+        "/images/Product/Dior Homme Cologne-3.jpg",
+        "/images/Product/Dior Homme Cologne-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 180,
+      "sale": 165
+    },
+    "attributes": {
+      "type": "Eau de Toilette",
+      "gender": "Man",
+      "aroma": "Fresh",
+      "stability": "Medium",
+      "classification": "масова"
+    }
+  },
+  {
+    "id": 24,
+    "name": "Chanel No 5 L'Eau",
+    "brand": "Chanel",
+    "year": 2016,
+    "description": "Chanel No 5 L'Eau is a modern reinterpretation of the classic fragrance, blending Citrus, Floral, and Soft Woody notes to create a fresh and luminous scent.",
+    "capacity": [35, 50, 100, 250],
+    "images": {
+      "main": "/images/Product/Chanel No 5 L'Eau.jpg",
+      "list": [
+        "/images/Product/Chanel No 5 L'Eau-1.jpg",
+        "/images/Product/Chanel No 5 L'Eau-2.jpg",
+        "/images/Product/Chanel No 5 L'Eau-3.jpg",
+        "/images/Product/Chanel No 5 L'Eau-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 230,
+      "sale": 210
+    },
+    "attributes": {
+      "type": "Eau de Toilette",
+      "gender": "Woman",
+      "aroma": "Floral",
+      "stability": "Medium",
+      "classification": "елітна"
+    }
+  },
+  {
+    "id": 25,
+    "name": "Moschino Funny! Fresh",
+    "brand": "Moschino",
+    "year": 2018,
+    "description": "Moschino Funny! Fresh is a lively fragrance that mixes Citrus, Fruity, and Floral notes. It leaves a bright and joyful impression suitable for casual occasions.",
+    "capacity": [25, 50, 100, 250],
+    "images": {
+      "main": "/images/Product/Moschino Funny! Fresh.jpg",
+      "list": [
+        "/images/Product/Moschino Funny! Fresh-1.jpg",
+        "/images/Product/Moschino Funny! Fresh-2.jpg",
+        "/images/Product/Moschino Funny! Fresh-3.jpg",
+        "/images/Product/Moschino Funny! Fresh-4.jpg"
+      ]
+    },
+    "price": {
+      "normal": 170,
+      "sale": 155
+    },
+    "attributes": {
+      "type": "Eau de Toilette",
+      "gender": "Unisex",
+      "aroma": "Citrus",
+      "stability": "Light",
+      "classification": "масова"
+    }
+  }
+]
