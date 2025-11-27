@@ -53,10 +53,6 @@ function Mobile() {
   const dispatch = useDispatch();
   const { isMobileMenuOpen } = useSelector((state: RootState) => state.ui);
 
-  useEffect(() => {
-    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "auto";
-  }, [isMobileMenuOpen]);
-
   return (
     <header className="w-full sticky top-0 z-1000 bg-white text-black">
       <div className="w-full h-18 px-7 py-2 flex flex-row justify-between items-center border-b border-gray-200">
@@ -96,7 +92,7 @@ function Mobile() {
           <Link href="/sale">Акції</Link>
           <Link href="/brands">Бренди</Link>
           <div className="w-full border border-gray-600" />
-          <p onClick={() => dispatch(openCart())}>Кошик</p>
+          <p onClick={() => dispatch(openCart())} className="cursor-pointer">Кошик</p>
           <Link href="/settings">Налаштування</Link>
         </nav>
       </div>

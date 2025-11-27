@@ -2,14 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { notFound, useParams } from "next/navigation"
-import { getProductById } from "@/lib/product";
+import { formatPrice, getProductById } from "@/lib/product";
 import Image from "next/image"
 import { ProductType } from "@/types/ProductType";
+import { useCurrency } from "@/context/CurrencyContext";
 
 export default function ProductPage(){
   const params = useParams<{ productId: string }>();
   const [product, setProduct] = useState<ProductType | null>(null);
-
+  const [selectedImage, setSelectedImage] = useState<string>("/default_image.jpg");
+  const { currency } = useCurrency();
   useEffect(() => {
     const data = getProductById(Number(params.productId))
     if(!data){
@@ -18,13 +20,18 @@ export default function ProductPage(){
     setProduct(data);
   }, [params.productId])
 
+  useEffect(() => {
+    if (product?.images.main) {
+      setSelectedImage(product.images.main);
+    }
+  }, [product]);
   return(
     <main className="w-full min-h-full h-max px-0 md:px-10 lg:px-20 flex flex-col md:gap-10">
       <section className="w-full h-max md:h-[345px] flex flex-col md:grid md:grid-cols-2 items-center gap-2.5">
         <div className="w-full h-max flex flex-col gap-2.5">
           <div className="w-full h-[230px] md:h-[250px] flex justify-center">
             <Image
-              src={product?.images.main ?? "/default_image.jpg"}
+              src={selectedImage}
               alt={product?.name ?? "No image"}
               width={350}
               height={350}
@@ -34,22 +41,24 @@ export default function ProductPage(){
           <div className="w-full h-20 px-6 py-3 md:px-8 md:py-3 grid grid-cols-5 gap-1 *:cursor-pointer">
             <div className="w-15 h-15 flex justify-center">
               <Image
-                src={product?.images.main ?? "/default_image.jpg"}
+                src={product?.images.main ?? "/images/default_image.jpg"}
                 alt={product?.name ?? "No image"}
                 width={350}
                 height={350}
                 className="object-fit w-max h-full"
+                onClick={() => setSelectedImage(product?.images.main ?? "/images/default_image.jpg")}
               />
             </div>
             {
               product?.images.list?.map((image, index) => (
                 <div key={index} className="w-15 h-15 flex justify-center">
                   <Image
-                    src={image}
+                    src={image ?? "/images/default_image.jpg"}
                     alt={product.name}
                     width={350}
                     height={350}
                     className="object-fit w-max h-full"
+                    onClick={() => setSelectedImage(image)}
                   />
                 </div>
               ))
@@ -66,11 +75,11 @@ export default function ProductPage(){
           <div className="w-full h-max flex flex-row gap-2 items-end">
             {product?.price.sale && product?.price.sale < product?.price.normal ? (
               <>
-                <p className="text-base md:text-xl font-semibold text-red-600">₴{product?.price.sale}</p>
-                <p className="text-sm md:text-base font-normal text-gray-600 line-through">₴{product?.price.normal}</p>
+                <p className="text-base md:text-xl font-semibold text-red-600">{formatPrice(Number(product?.price.sale), currency)}</p>
+                <p className="text-sm md:text-base font-normal text-gray-600 line-through">{formatPrice(Number(product?.price.normal), currency)}</p>
               </>
             ) : (
-                <p className="text-base md:text-xl font-semibold">₴{product?.price.normal}</p>
+                <p className="text-base md:text-xl font-semibold">{formatPrice(Number(product?.price.normal), currency)}</p>
             )}
           </div>
           <div className="relative inline-block">

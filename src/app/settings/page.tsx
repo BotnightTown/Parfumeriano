@@ -1,4 +1,10 @@
+"use client";
+
+import { useCurrency } from "@/context/CurrencyContext"
+
 export default function SettingsPage(){
+  const { setCurrency } = useCurrency();
+
   return(
     <main className="w-full min-h-full h-max p-2.5 md:px-10 lg:px-20 flex flex-col gap-5 md:gap-10">
       <h1 className="font-semibold text-2xl md:text-3xl">Налаштування</h1>
@@ -23,7 +29,9 @@ export default function SettingsPage(){
         <div className="w-full flex justify-between items-center">
           <p className="text-sm md:text-base">Валюта: </p>
           <div className="relative inline-block">
-            <select className="px-4 pr-8 py-2 rounded-md border border-gray-500 text-sm md:text-base appearance-none cursor-pointer">
+            <select 
+            className="px-4 pr-8 py-2 rounded-md border border-gray-500 text-sm md:text-base appearance-none cursor-pointer"
+            onChange={(e) => setCurrency(e.target.value)}>
               <option value="UAH">UAH</option>
               <option value="USD">USD</option>
               <option value="EUR">EUR</option>

@@ -7,17 +7,26 @@ import Card from "./Card";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import productJson from "@/data/products.json"
+import { filterList } from "@/lib/product";
 
 type Props = {
-  title: string;
+  title: string,
+  brand?: string,
+  onlySale?: boolean,
+  isNew?: boolean,
+  gender?: string
 }
 
-export default function List({title}: Props){
+export default function List({
+  title, 
+  brand = "all", 
+  onlySale = false, 
+  isNew = false,
+  gender = "Unisex"
+  }: Props){
   const [currentPage, setCurrentPage] = useState(0);
-  const products: ProductType[] = productJson;
-  const isExtraLargeDevice = useMediaQuery(
-    "only screen and (min-width : 1280px)"
-  );
+  const products: ProductType[] = filterList({brand, onlySale, isNew, gender});
+  const isExtraLargeDevice = useMediaQuery("only screen and (min-width : 1280px)");
   const itemsPerPage =  isExtraLargeDevice ? 5 : 4;
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -31,6 +40,8 @@ export default function List({title}: Props){
 
   function nextPage() {setCurrentPage(prev => Math.min(prev + 1, totalPages - 1));}
   function prevPage() {setCurrentPage(prev => Math.max(prev - 1, 0));}
+
+
 
   return(
     <section className="flex flex-col gap-5 md:gap-10 py-5 px-6 md:px-0 items-center">

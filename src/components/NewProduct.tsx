@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { ProductType } from "@/types/ProductType"
+import Link from "next/link"
 
 export default function NewProduct({ reverse, product }: { reverse?: boolean, product: ProductType }) {
   return (
@@ -33,6 +34,9 @@ export default function NewProduct({ reverse, product }: { reverse?: boolean, pr
           <p className="text-xl">•</p>
           <p>{product.attributes?.stability} stability</p>
         </div>
+        <Link href={`/product/${product.id}`} className="w-max h-max py-2 px-6 rounded-sm text-center bg-black text-white text-xs md:text-sm lg:text-base cursor-pointer">
+          Перейти до товару
+        </Link>
       </div>
     </article>
   )
