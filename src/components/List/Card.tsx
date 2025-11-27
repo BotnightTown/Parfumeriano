@@ -1,8 +1,12 @@
+import { useCurrency } from "@/context/CurrencyContext";
+import { formatPrice } from "@/lib/product";
 import { ProductType } from "@/types/ProductType";
 import Image from "next/image"
 import Link from "next/link";
 
 export default function ListCard({ product }: { product: ProductType }){
+  const { currency } = useCurrency();
+
   return(
     <div className="w-full lg:w-55 h-[260px] md:h-75 lg:h-[370px] p-2 md:p-3 border border-[#CCCCCC] rounded-xl flex flex-col gap-2 md:gap-3">
       <div className="w-full h-[130px] md:h-40 lg:h-50 flex justify-center">
@@ -24,15 +28,15 @@ export default function ListCard({ product }: { product: ProductType }){
             {product.price.sale && product.price.sale < product.price.normal ? (
               <>
                 <p className="text-sm md:text-base lg:text-lg text-red-600 font-semibold md:font-bold">
-                  ₴{product.price.sale}
+                  {formatPrice(product.price.sale, currency)}
                 </p>
                 <p className="text-[10px] md:text-xs lg:text-sm text-gray-600 font-normal line-through">
-                  ₴{product.price.normal}
+                  {formatPrice(product.price.normal, currency)}
                 </p>
               </>
             ) : (
               <p className="text-sm md:text-base lg:text-lg font-semibold md:font-bold">
-                ₴{product.price.normal}
+                {formatPrice(product.price.normal, currency)}
               </p>
             )}
           </div>

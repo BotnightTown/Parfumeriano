@@ -6,13 +6,14 @@ export default function Home() {
   return (
     <main className="w-full min-h-full h-max px-0 md:px-10 lg:px-20 flex flex-col md:gap-10">
       <Carousel />
-      <List title="Акції на цьому тижні"/>
-      <List title="Новинки"/>
+      <List title="Акції на цьому тижні" brand="all" onlySale={true}/>
+      <List title="Новинки" isNew={true}/>
       <div className="w-full h-max px-7 md:px-0 flex flex-col md:flex-row gap-3">
         <NewsBanner />
         <NewsBanner />
       </div>
-      <List title="Популярні аромати"/>
+      <List title="Жіночі аромати" gender="Woman"/>
+      <List title="Чоловічі аромати" gender="Man"/>
     </main>
   );
 }
