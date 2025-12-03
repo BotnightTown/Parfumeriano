@@ -2,16 +2,21 @@
 
 import { useEffect, useState } from "react";
 import { notFound, useParams } from "next/navigation"
-import { formatPrice, getProductById } from "@/lib/product";
+import { useDispatch } from "react-redux";
+import { convertPrice, formatPrice, getProductById } from "@/lib/product";
 import Image from "next/image"
 import { ProductType } from "@/types/ProductType";
 import { useCurrency } from "@/context/CurrencyContext";
+import { addItemToCart } from "@/store/slices/cartSlice";
+
 
 export default function ProductPage(){
   const params = useParams<{ productId: string }>();
   const [product, setProduct] = useState<ProductType | null>(null);
   const [selectedImage, setSelectedImage] = useState<string>("/default_image.jpg");
   const { currency } = useCurrency();
+  const dispatch = useDispatch();
+  
   useEffect(() => {
     const data = getProductById(Number(params.productId))
     if(!data){
@@ -25,6 +30,12 @@ export default function ProductPage(){
       setSelectedImage(product.images.main);
     }
   }, [product]);
+
+  function handleAddToCart(): void{
+    if(product === null) return;
+    dispatch(addItemToCart({...product, quantity: 1}))
+  }
+
   return(
     <main className="w-full min-h-full h-max px-0 md:px-10 lg:px-20 flex flex-col md:gap-10">
       <section className="w-full h-max md:h-[345px] flex flex-col md:grid md:grid-cols-2 items-center gap-2.5">
@@ -75,8 +86,8 @@ export default function ProductPage(){
           <div className="w-full h-max flex flex-row gap-2 items-end">
             {product?.price.sale && product?.price.sale < product?.price.normal ? (
               <>
-                <p className="text-base md:text-xl font-semibold text-red-600">{formatPrice(Number(product?.price.sale), currency)}</p>
-                <p className="text-sm md:text-base font-normal text-gray-600 line-through">{formatPrice(Number(product?.price.normal), currency)}</p>
+                <p className="text-base md:text-xl font-semibold text-red-600">{formatPrice(convertPrice(Number(product?.price.sale), currency), currency)}</p>
+                <p className="text-sm md:text-base font-normal text-gray-600 line-through">{formatPrice(convertPrice(Number(product?.price.normal), currency), currency)}</p>
               </>
             ) : (
                 <p className="text-base md:text-xl font-semibold">{formatPrice(Number(product?.price.normal), currency)}</p>
@@ -95,7 +106,8 @@ export default function ProductPage(){
             </div>
           </div>
           <button
-          className="w-full h-9 flex items-center justify-center bg-black text-white font-medium text-sm rounded-sm cursor-pointer"
+            className="w-full h-9 flex items-center justify-center bg-black text-white font-medium text-sm rounded-sm cursor-pointer"
+            onClick={handleAddToCart}
           >
             Купити
           </button>

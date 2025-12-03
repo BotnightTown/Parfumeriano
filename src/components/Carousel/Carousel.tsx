@@ -45,9 +45,19 @@ export default function Carousel(){
       }
       </>
       <div className="relative z-20 h-full px-2 md:p-8 py-7 md:py-15 flex flex-row justify-center md:justify-between items-start text-xs md:text-lg lg:text-xl font-semibold text-white">
-        <p className="cursor-pointer hidden md:flex justify-center items-center md:max-w-20 md:w-full h-full" onClick={decrease}><FaArrowLeft /></p>
+        <button 
+          className="cursor-pointer hidden md:flex justify-center items-center md:max-w-20 md:w-full h-full" 
+          onClick={decrease}
+        >
+          <FaArrowLeft />
+        </button>
         <p className="h-max">{slides[currentSlide]?.description}</p>
-        <p className="cursor-pointer hidden md:flex justify-center items-center md:max-w-20 md:w-full h-full" onClick={increase}><FaArrowRight /></p>
+        <button 
+          className="cursor-pointer hidden md:flex justify-center items-center md:max-w-20 md:w-full h-full" 
+          onClick={increase}
+        >
+          <FaArrowRight />
+        </button>
       </div>
     </article>
   )
