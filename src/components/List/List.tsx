@@ -56,7 +56,9 @@ export default function List({
       </div>
       
       <div className="flex flex-row gap-5 text-base text-gray-700 *:cursor-pointer *:w-5 *:h-5 *:flex *:items-center *:justify-center">
-        <FaArrowLeft onClick={prevPage}/>
+        <button onClick={prevPage}>
+          <FaArrowLeft/>
+        </button>
           {
             Array.from({ length: end - adjustedStart }).map((_, index) => {
               const pageIndex = adjustedStart + index;
@@ -72,7 +74,9 @@ export default function List({
               );
             })
           }
-        <FaArrowRight onClick={nextPage}/>
+        <button onClick={nextPage}>
+          <FaArrowRight/>
+        </button>
       </div>
     </section>
   )

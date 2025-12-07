@@ -1,5 +1,5 @@
 import { useCurrency } from "@/context/CurrencyContext";
-import { formatPrice } from "@/lib/product";
+import { convertPrice, formatPrice } from "@/lib/product";
 import { ProductType } from "@/types/ProductType";
 import Image from "next/image"
 import Link from "next/link";
@@ -28,15 +28,15 @@ export default function ListCard({ product }: { product: ProductType }){
             {product.price.sale && product.price.sale < product.price.normal ? (
               <>
                 <p className="text-sm md:text-base lg:text-lg text-red-600 font-semibold md:font-bold">
-                  {formatPrice(product.price.sale, currency)}
+                  {formatPrice(convertPrice(product.price.sale, currency), currency)}
                 </p>
                 <p className="text-[10px] md:text-xs lg:text-sm text-gray-600 font-normal line-through">
-                  {formatPrice(product.price.normal, currency)}
+                  {formatPrice(convertPrice(product.price.normal, currency), currency)}
                 </p>
               </>
             ) : (
               <p className="text-sm md:text-base lg:text-lg font-semibold md:font-bold">
-                {formatPrice(product.price.normal, currency)}
+                {formatPrice(convertPrice(product.price.normal, currency), currency)}
               </p>
             )}
           </div>

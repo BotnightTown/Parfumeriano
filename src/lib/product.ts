@@ -33,3 +33,17 @@ export function formatPrice(value:number, currency: string) {
     maximumFractionDigits: 2,
   }).format(value);
 };
+
+const exchangeRates: Record<string, number> = {
+  "UAH": 42.21,
+  "USD": 1,
+  "EUR": 0.86,
+};
+
+export function convertPrice(price: number, currency: string): number{
+  const rate = exchangeRates[currency]
+  if(!rate){
+    return price;
+  }
+  return price * rate;
+}

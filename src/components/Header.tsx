@@ -1,23 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { useDispatch, useSelector } from "react-redux";
-import { openCart, toggleMobileMenu } from "@/store/uiSlice";
+import { openModal, toggleMobileMenu } from "@/store/slices/uiSlice";
 import { RootState } from "@/store/store";
 import { NavLink } from "./ui/NavLink";
 
-import { RiShoppingBagLine, RiCloseFill } from "react-icons/ri";
+import { RiCloseFill } from "react-icons/ri";
 import { GoGear } from "react-icons/go";
 import { RxHamburgerMenu } from "react-icons/rx";
-
-function NotificationDot(){
-  return <div className="w-2.5 h-2.5 rounded-full bg-red-600 absolute top-1 right-0"></div>
-}
+import CartIcon from "./ui/CartIcon";
 
 function Desktop(){
-  const dispatch = useDispatch();
 
   return(
     <header className="w-full h-14 my-5 px-10 lg:px-20 grid grid-cols-3 items-center">
@@ -36,13 +31,9 @@ function Desktop(){
         <NavLink href="/brands">Бренди</NavLink>
       </nav>
       <div className="flex justify-end text-3xl gap-2 *:cursor-pointer">
-        <div className="relative" onClick={() => dispatch(openCart())}>
-          <RiShoppingBagLine />
-          <NotificationDot />
-        </div>
+        <CartIcon />
         <Link href={"/settings"} className="relative">
           <GoGear />
-          <NotificationDot />
         </Link>
       </div>
     </header>
@@ -92,7 +83,7 @@ function Mobile() {
           <Link href="/sale">Акції</Link>
           <Link href="/brands">Бренди</Link>
           <div className="w-full border border-gray-600" />
-          <p onClick={() => dispatch(openCart())} className="cursor-pointer">Кошик</p>
+          <p onClick={() => dispatch(openModal())} className="cursor-pointer">Кошик</p>
           <Link href="/settings">Налаштування</Link>
         </nav>
       </div>
