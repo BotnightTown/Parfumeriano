@@ -11,9 +11,10 @@ import { addItemToCart } from "@/store/slices/cartSlice";
 
 
 export default function ProductPage(){
+  const [isSign, setIsSign] = useState<boolean>(true);
   const params = useParams<{ productId: string }>();
   const [product, setProduct] = useState<ProductType | null>(null);
-  const [selectedImage, setSelectedImage] = useState<string>("/default_image.jpg");
+  const [selectedImage, setSelectedImage] = useState<string>("/images/default_image.jpg");
   const { currency } = useCurrency();
   const dispatch = useDispatch();
   
@@ -42,14 +43,14 @@ export default function ProductPage(){
         <div className="w-full h-max flex flex-col gap-2.5">
           <div className="w-full h-[230px] md:h-[250px] flex justify-center">
             <Image
-              src={selectedImage}
+              src={selectedImage ?? "/images/default_image.jpg"}
               alt={product?.name ?? "No image"}
               width={350}
               height={350}
               className="object-fit w-max h-full"
             />
           </div>
-          <div className="w-full h-20 px-6 py-3 md:px-8 md:py-3 grid grid-cols-5 gap-1 *:cursor-pointer">
+          {/* <div className="w-full h-20 px-6 py-3 md:px-8 md:py-3 grid grid-cols-5 gap-1 *:cursor-pointer">
             <div className="w-15 h-15 flex justify-center">
               <Image
                 src={product?.images.main ?? "/images/default_image.jpg"}
@@ -74,7 +75,7 @@ export default function ProductPage(){
                 </div>
               ))
             }
-          </div>
+          </div> */}
         </div>
 
         <div className="w-[315px] h-max flex flex-col gap-2.5">
@@ -90,7 +91,7 @@ export default function ProductPage(){
                 <p className="text-sm md:text-base font-normal text-gray-600 line-through">{formatPrice(convertPrice(Number(product?.price.normal), currency), currency)}</p>
               </>
             ) : (
-                <p className="text-base md:text-xl font-semibold">{formatPrice(Number(product?.price.normal), currency)}</p>
+                <p className="text-base md:text-xl font-semibold">{formatPrice(convertPrice(Number(product?.price.normal), currency), currency)}</p>
             )}
           </div>
           <div className="relative inline-block">
@@ -114,21 +115,35 @@ export default function ProductPage(){
         </div>
       </section>
 
-      <section className="w-full max py-5 flex flex-row gap-2.5 md:gap-15 lg:gap-25 justify-center md:border border-gray-300 rounded-xl">
-        <div className="w-max h-full flex flex-col gap-4 p-4 text-sm lg:text-base *:cursor-pointer">
-          <p>Характеристики</p>
-          <p className="text-gray-600">Опис</p>
-          <p className="text-gray-600">Склад</p>
+      <section className="w-full max py-5 grid grid-cols-2 gap-2.5 md:gap-15 lg:gap-25 justify-center md:border border-gray-300 rounded-xl">
+        <div className="w-full h-full flex flex-col items-end gap-4 p-4 text-sm lg:text-base *:cursor-pointer">
+          <button 
+          className="w-max"
+          onClick={()=>setIsSign(true)}
+          >
+            Характеристики
+          </button>
+          <button 
+            className="w-max text-gray-600"
+            onClick={()=>setIsSign(false)}
+          >
+            Опис
+            </button>
         </div>
-        <ul className="w-max h-max py-4 flex flex-col gap-1 text-sm lg:text-base">
-          <li><span className="font-semibold">Прем'єра аромату:</span> {product?.year}</li>
-          <li><span className="font-semibold">Бренд:</span> {product?.brand}</li>
-          <li><span className="font-semibold">Група товару:</span> {product?.attributes?.type}</li>
-          <li><span className="font-semibold">Об'єм:</span> {product?.capacity.join("ml, ") + "ml"}</li>
-          <li><span className="font-semibold">Стать:</span> {product?.attributes?.gender}</li>
-          <li><span className="font-semibold">Класифікація:</span> {product?.attributes?.classification}</li>
-          <li><span className="font-semibold">Тип аромату:</span> {product?.attributes?.aroma}</li>
-        </ul>
+        {isSign ? (
+          <ul className="w-max min-h-60 h-max py-4 flex flex-col gap-1 text-sm lg:text-base">
+            <li><span className="font-semibold">Прем'єра аромату:</span> {product?.year}</li>
+            <li><span className="font-semibold">Бренд:</span> {product?.brand}</li>
+            <li><span className="font-semibold">Група товару:</span> {product?.attributes?.type}</li>
+            <li><span className="font-semibold">Об'єм:</span> {product?.capacity.join("ml, ") + "ml"}</li>
+            <li><span className="font-semibold">Стать:</span> {product?.attributes?.gender}</li>
+            <li><span className="font-semibold">Класифікація:</span> {product?.attributes?.classification}</li>
+            <li><span className="font-semibold">Тип аромату:</span> {product?.attributes?.aroma}</li>
+          </ul>
+        ) : (
+          <p className="w-full min-h-60 h-max text-sm lg:text-base py-4">{product?.description}</p>   
+        )}
+        
       </section>
     </main>
   )

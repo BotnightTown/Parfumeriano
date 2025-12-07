@@ -5,7 +5,7 @@ import Image from "next/image"
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { CartItemType, updateQuantityInCart } from "@/store/slices/cartSlice";
 import { useDispatch } from "react-redux";
-import ConfirmModal from "./ConfirmModal";
+import ConfirmModal from "../ConfirmModal"
 
 export default function CartItem({ item }: { item: CartItemType}){
   const { currency } = useCurrency();
@@ -54,10 +54,10 @@ export default function CartItem({ item }: { item: CartItemType}){
       </div>
       <div className="w-full flex flex-col justify-between">
         <div className="w-full h-max">
-          <p className="font-medium text-base md:text-xl">
+          <p className="font-base text-base md:text-xl">
             {item.name}
           </p>
-          <p className="font-normal text-xs md:text-sm">
+          <p className="font-light text-xs md:text-sm">
             {item.attributes?.type}
           </p>
         </div>

@@ -1,4 +1,4 @@
-import { openCart } from "@/store/slices/uiSlice";
+import { openModal } from "@/store/slices/uiSlice";
 import { RootState } from "@/store/store";
 import { RiShoppingBagLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +8,7 @@ export default function CartIcon(){
   const cartItems = useSelector((state: RootState) => state.cart.items);
 
   return(
-    <div className="relative" onClick={() => dispatch(openCart())}>
+    <div className="relative" onClick={() => dispatch(openModal())}>
       <RiShoppingBagLine />
       {
         cartItems.length !== 0 ? (

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { useDispatch, useSelector } from "react-redux";
-import { openCart, toggleMobileMenu } from "@/store/slices/uiSlice";
+import { openModal, toggleMobileMenu } from "@/store/slices/uiSlice";
 import { RootState } from "@/store/store";
 import { NavLink } from "./ui/NavLink";
 
@@ -83,7 +83,7 @@ function Mobile() {
           <Link href="/sale">Акції</Link>
           <Link href="/brands">Бренди</Link>
           <div className="w-full border border-gray-600" />
-          <p onClick={() => dispatch(openCart())} className="cursor-pointer">Кошик</p>
+          <p onClick={() => dispatch(openModal())} className="cursor-pointer">Кошик</p>
           <Link href="/settings">Налаштування</Link>
         </nav>
       </div>
