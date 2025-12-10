@@ -2,29 +2,40 @@
 
 import { useEffect, useState } from "react";
 import { notFound, useParams } from "next/navigation"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { convertPrice, formatPrice, getProductById } from "@/lib/product";
 import Image from "next/image"
 import { ProductType } from "@/types/ProductType";
 import { useCurrency } from "@/context/CurrencyContext";
 import { addItemToCart } from "@/store/slices/cartSlice";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/lib/translations";
+import { RootState } from "@/store/store";
+import EditProductModal from "@/components/Admin/EditProductModal";
+import DeleteProductModal from "@/components/Admin/DeleteProductModal";
 
 
 export default function ProductPage(){
+  const dispatch = useDispatch();
   const [isSign, setIsSign] = useState<boolean>(true);
-  const params = useParams<{ productId: string }>();
+  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [product, setProduct] = useState<ProductType | null>(null);
   const [selectedImage, setSelectedImage] = useState<string>("/images/default_image.jpg");
   const { currency } = useCurrency();
-  const dispatch = useDispatch();
+  const { language } = useLanguage();
+  const params = useParams<{ productId: string }>();
+  const products = useSelector((s: RootState) => s.adminProducts.products);
+  const isAdmin = useSelector((s: RootState) => s.admin.isAdmin)
+  const t = translations[language];
   
   useEffect(() => {
-    const data = getProductById(Number(params.productId))
+    const data = getProductById(Number(params.productId), products)
     if(!data){
       notFound();
     }
     setProduct(data);
-  }, [params.productId])
+  }, [products, params.productId])
 
   useEffect(() => {
     if (product?.images.main) {
@@ -106,12 +117,31 @@ export default function ProductPage(){
               </svg>
             </div>
           </div>
-          <button
-            className="w-full h-9 flex items-center justify-center bg-black text-white font-medium text-sm rounded-sm cursor-pointer"
-            onClick={handleAddToCart}
-          >
-            Купити
-          </button>
+          {
+            isAdmin ? (
+              <div className="w-full flex flex-row gap-3">
+                <button
+                  className="w-full h-9 flex items-center justify-center bg-black text-white font-medium text-sm rounded-sm cursor-pointer"
+                  onClick={()=>setIsEditModalOpen(true)}
+                >
+                  Редагувати
+                </button>
+                <button
+                  className="w-full h-9 flex items-center justify-center bg-black text-white font-medium text-sm rounded-sm cursor-pointer"
+                  onClick={()=>setIsDeleteModalOpen(true)}
+                >
+                  Видалити
+                </button>
+              </div>
+            ) : (
+              <button
+                className="w-full h-9 flex items-center justify-center bg-black text-white font-medium text-sm rounded-sm cursor-pointer"
+                onClick={handleAddToCart}
+              >
+                {t.buy}
+              </button>
+            )
+          }
         </div>
       </section>
 
@@ -121,29 +151,48 @@ export default function ProductPage(){
           className="w-max"
           onClick={()=>setIsSign(true)}
           >
-            Характеристики
+            {t.characteristics}
           </button>
           <button 
             className="w-max text-gray-600"
             onClick={()=>setIsSign(false)}
           >
-            Опис
+            {t.description}
             </button>
         </div>
         {isSign ? (
           <ul className="w-max min-h-60 h-max py-4 flex flex-col gap-1 text-sm lg:text-base">
-            <li><span className="font-semibold">Прем'єра аромату:</span> {product?.year}</li>
-            <li><span className="font-semibold">Бренд:</span> {product?.brand}</li>
-            <li><span className="font-semibold">Група товару:</span> {product?.attributes?.type}</li>
-            <li><span className="font-semibold">Об'єм:</span> {product?.capacity.join("ml, ") + "ml"}</li>
-            <li><span className="font-semibold">Стать:</span> {product?.attributes?.gender}</li>
+            <li><span className="font-semibold">{t.premiere}:</span> {product?.year}</li>
+            <li><span className="font-semibold">{t.brand}:</span> {product?.brand}</li>
+            <li><span className="font-semibold">{t.type}:</span> {product?.attributes?.type}</li>
+            <li><span className="font-semibold">{t.capacity}:</span> {product?.capacity.join("ml, ") + "ml"}</li>
+            <li><span className="font-semibold">{t.gender}:</span> {product?.attributes?.gender}</li>
+            <li><span className="font-semibold">{t.classification}:</span> {product?.attributes?.classification}</li>
+            <li><span className="font-semibold">{t.aroma}:</span> {product?.attributes?.aroma}</li>
             <li><span className="font-semibold">Класифікація:</span> {product?.attributes?.classification}</li>
-            <li><span className="font-semibold">Тип аромату:</span> {product?.attributes?.aroma}</li>
           </ul>
         ) : (
           <p className="w-full min-h-60 h-max text-sm lg:text-base py-4">{product?.description}</p>   
         )}
         
+        {
+          isEditModalOpen && (
+            <EditProductModal 
+              isModalOpen={isEditModalOpen} 
+              setIsModalOpen={setIsEditModalOpen}
+              product={product}
+            />
+          )
+        }
+        {
+          isDeleteModalOpen && (
+            <DeleteProductModal 
+              isModalOpen={isDeleteModalOpen} 
+              setIsModalOpen={setIsDeleteModalOpen}
+              product={product}
+            />
+          )
+        }
       </section>
     </main>
   )

@@ -1,3 +1,4 @@
+'use client'
 import { closeModal, setCheckoutStep} from "@/store/slices/uiSlice";
 import { RootState } from "@/store/store";
 import { RiCloseFill } from "react-icons/ri";
@@ -6,11 +7,15 @@ import CartItem from "./CartItem";
 import { CartItemType } from "@/store/slices/cartSlice";
 import { convertPrice, formatPrice } from "@/lib/product";
 import { useCurrency } from "@/context/CurrencyContext";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/lib/translations";
 
 export default function CartModal(){
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const { currency } = useCurrency();
+  const { language } = useLanguage();
+  const t = translations[language];
   
   const totalPrice = cartItems.reduce((sum: number, item: CartItemType) => sum + (item.price.sale ? item.price.sale : item.price.normal) * item.quantity, 0);
     
@@ -29,7 +34,7 @@ export default function CartModal(){
         >
           <RiCloseFill />
         </button>
-        <p className="font-semibold text-xl md:text-2xl">Кошик</p>
+        <p className="font-semibold text-xl md:text-2xl">{t.cart}</p>
       </div>
       <div className="w-full h-max flex flex-col gap-3">
         <div className="w-full h-max max-h-102 overflow-y-scroll flex flex-col gap-3">
@@ -43,14 +48,14 @@ export default function CartModal(){
               ))
             ):(
               <div className="text-center py-10 text-gray-500">
-                Кошик порожній
+                {t.cartIsEmpty}
               </div>
             )
           }
 
         </div>
         <div className="w-full flex flex-row justify-between">
-          <p className="font-semibold text-base md:text-xl">Разом</p>
+          <p className="font-semibold text-base md:text-xl">{t.total}</p>
           <p className="font-semibold text-lg md:text-xl">{formatPrice(convertPrice(totalPrice, currency), currency)}</p>
         </div>
         <div className="w-full h-max flex flex-row gap-2">
@@ -59,7 +64,7 @@ export default function CartModal(){
           className="w-full h-max md:h-[50px] p-1 md:p-4 text-sm md:text-base font-medium border rounded-lg cursor-pointer flex items-center justify-center"
           onClick={()=> dispatch(closeModal())}
           >
-            Продовжити покупки
+            {t.continueShopping}
           </button>
           <button 
           type="submit"
@@ -67,7 +72,7 @@ export default function CartModal(){
           disabled={cartItems.length === 0}
           onClick={() => dispatch(setCheckoutStep("order"))}
           >
-            Перейти до оплати
+            {t.goToPayment}
           </button>
         </div>
       </div>

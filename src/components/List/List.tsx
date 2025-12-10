@@ -7,7 +7,7 @@ import Card from "./Card";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import productJson from "@/data/products.json"
-import { filterList } from "@/lib/product";
+import { useFilterList } from "@/lib/product";
 
 type Props = {
   title: string,
@@ -25,7 +25,7 @@ export default function List({
   gender = "Unisex"
   }: Props){
   const [currentPage, setCurrentPage] = useState(0);
-  const products: ProductType[] = filterList({brand, onlySale, isNew, gender});
+  const products: ProductType[] = useFilterList({brand, onlySale, isNew, gender});
   const isExtraLargeDevice = useMediaQuery("only screen and (min-width : 1280px)");
   const itemsPerPage =  isExtraLargeDevice ? 5 : 4;
   const startIndex = currentPage * itemsPerPage;

@@ -1,4 +1,7 @@
-import products from '@/data/products.json';
+import products1 from '@/data/products.json';
+import { RootState } from '@/store/store';
+import { ProductType } from '@/types/ProductType';
+import { useSelector } from 'react-redux';
 
 interface filterProps{
   brand?: string,
@@ -7,17 +10,20 @@ interface filterProps{
   gender? : string
 }
 
-export const getProductById = (id: number) => {
+export const getProductById = (id: number, products: ProductType[]) => {
   return products.find(product => product.id === id);
 };
 
-export function filterList({brand, onlySale, isNew, gender}: filterProps){
+export function useFilterList({brand, onlySale, isNew, gender}: filterProps){
+  const products = useSelector((s: RootState) => s.adminProducts.products);
+  
+  const filteredProducts = products.filter((product: ProductType) => {
 
-  const filteredProducts = products.filter(product => {
+    
     const brandMatch = brand === 'all' || product.brand === brand;
     const saleMatch = !onlySale || product.price.sale !== null;
     const dateMatch = !isNew || product.year > 2016;
-    const genderMatch = gender === "Unisex" || product.attributes.gender === gender
+    const genderMatch = gender === "Unisex" || product.attributes?.gender === gender
     return brandMatch && saleMatch && dateMatch && genderMatch
   })
 

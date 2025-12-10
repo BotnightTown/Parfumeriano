@@ -1,5 +1,8 @@
+'use client'
 import { useCurrency } from "@/context/CurrencyContext";
+import { useLanguage } from "@/context/LanguageContext";
 import { convertPrice, formatPrice } from "@/lib/product";
+import { translations } from "@/lib/translations";
 import { CartItemType } from "@/store/slices/cartSlice";
 import { setCheckoutStep } from "@/store/slices/uiSlice";
 import { RootState } from "@/store/store";
@@ -11,6 +14,8 @@ export default function OrderModal(){
   const { currency } = useCurrency();
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const { city, deliveryMethod, paymentMethod } = useSelector((state: RootState) => state.checkout)
+  const { language } = useLanguage();
+  const t = translations[language];
 
   const totalPrice = cartItems.reduce((sum: number, item: CartItemType) => sum + (item.price.sale ? item.price.sale : item.price.normal) * item.quantity, 0);
   
@@ -29,31 +34,31 @@ export default function OrderModal(){
         >
           <RiArrowLeftLine />
         </button>
-        <p className="font-semibold text-xl md:text-2xl">Оформити замовлення</p>
+        <p className="font-semibold text-xl md:text-2xl">{t.placeAnOrder}</p>
       </div>
       <div className="w-full h-max flex flex-col gap-3">
         <div className="w-full h-max p-4 flex flex-col items-end gap-2.5 rounded-lg border border-gray-400">
-          <p className="w-full text-sm font-medium text-gray-700">Доставка</p>
-          <div className="w-full text-sm font-medium text-gray-700">{ city }, {deliveryMethod === "courier" ? "Кур'єрська доставка" : deliveryMethod === "self" ? "адреса нашого магазину" : "адреса нової пошти"}</div>
+          <p className="w-full text-sm font-medium text-gray-700">{t.delivery}</p>
+          <div className="w-full text-sm font-medium text-gray-700">{ city }, {deliveryMethod === "courier" ? `${t.courier}` : deliveryMethod === "self" ? "адреса нашого магазину" : "адреса нової пошти"}</div>
           <button 
             className="w-max cursor-pointer font-medium"
             onClick={() => dispatch(setCheckoutStep("delivery"))}
           >
-            Змінити
+            {t.change}
           </button>
         </div>
         <div className="w-full h-max p-4 flex flex-col items-end gap-2.5 rounded-lg border border-gray-400">
-          <p className="w-full text-sm font-medium text-gray-700">Оплата</p>
-          <div className="w-full text-sm font-medium text-gray-700">{paymentMethod === "receiving" ? "Оплата під час отримання товару" : paymentMethod === "google_pay" ? "Google pay" : "Безготівковий для фізичних осіб" }</div>
+          <p className="w-full text-sm font-medium text-gray-700">{t.payment}</p>
+          <div className="w-full text-sm font-medium text-gray-700">{paymentMethod === "receiving" ? `${t.paymentUponReceiptOfGoods}` : paymentMethod === "google_pay" ? "Google pay" : `${t.cashlessForIndividuals}` }</div>
           <button 
             className="w-max cursor-pointer font-medium"
             onClick={() => dispatch(setCheckoutStep("payment"))}
           >
-            Змінити
+            {t.change}
           </button>
         </div>
         <div className="w-full flex flex-row justify-between">
-          <p className="font-semibold text-base md:text-xl">Сума до сплати</p>
+          <p className="font-semibold text-base md:text-xl">{t.sum}</p>
           <p className="font-semibold text-lg md:text-xl">{formatPrice(convertPrice(totalPrice, currency), currency)}</p>
         </div>
         <div className="w-full h-max flex flex-row gap-2">
@@ -62,7 +67,7 @@ export default function OrderModal(){
           className="w-full h-max md:h-[50px] p-1 md:p-4 text-sm md:text-base font-medium border rounded-lg flex items-center justify-center cursor-pointer text-white bg-black"
           onClick={() => dispatch(setCheckoutStep("success"))}
           >
-            Оплатити
+            {t.pay}
           </button>
         </div>
       </div>

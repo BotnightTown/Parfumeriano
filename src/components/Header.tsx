@@ -11,8 +11,12 @@ import { RiCloseFill } from "react-icons/ri";
 import { GoGear } from "react-icons/go";
 import { RxHamburgerMenu } from "react-icons/rx";
 import CartIcon from "./ui/CartIcon";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/lib/translations";
 
 function Desktop(){
+  const { language } = useLanguage();
+  const t = translations[language];
 
   return(
     <header className="w-full h-14 my-5 px-10 lg:px-20 grid grid-cols-3 items-center">
@@ -25,10 +29,10 @@ function Desktop(){
         <p className="text-xl font-medium">Parfumeriano</p>
       </Link>
       <nav className="flex flex-row gap-8 justify-center text-base font-medium *:cursor-pointer">
-        <NavLink href="/">Головна</NavLink>
-        <NavLink href="/new">Новинки</NavLink>
-        <NavLink href="/sale">Акції</NavLink>
-        <NavLink href="/brands">Бренди</NavLink>
+        <NavLink href="/">{t.main}</NavLink>
+        <NavLink href="/new">{t.new}</NavLink>
+        <NavLink href="/sale">{t.sale}</NavLink>
+        <NavLink href="/brands">{t.brands}</NavLink>
       </nav>
       <div className="flex justify-end text-3xl gap-2 *:cursor-pointer">
         <CartIcon />
@@ -43,6 +47,8 @@ function Desktop(){
 function Mobile() {
   const dispatch = useDispatch();
   const { isMobileMenuOpen } = useSelector((state: RootState) => state.ui);
+  const { language } = useLanguage();
+  const t = translations[language];
 
   return (
     <header className="w-full sticky top-0 z-1000 bg-white text-black">
@@ -73,18 +79,18 @@ function Mobile() {
         } flex flex-col p-6`}
       >
         <div className="flex justify-between items-center mb-6">
-          <p className="text-lg font-semibold">Меню</p>
+          <p className="text-lg font-semibold">{t.menu}</p>
           <RiCloseFill className="cursor-pointer text-2xl" onClick={() => dispatch(toggleMobileMenu())}/>
         </div>
 
         <nav className="flex flex-col gap-4 text-base font-base">
-          <Link href="/">Головна</Link>
-          <Link href="/new">Новинки</Link>
-          <Link href="/sale">Акції</Link>
-          <Link href="/brands">Бренди</Link>
+          <Link href="/">{t.main}</Link>
+          <Link href="/new">{t.new}</Link>
+          <Link href="/sale">{t.sale}</Link>
+          <Link href="/brands">{t.brands}</Link>
           <div className="w-full border border-gray-600" />
-          <p onClick={() => dispatch(openModal())} className="cursor-pointer">Кошик</p>
-          <Link href="/settings">Налаштування</Link>
+          <p onClick={() => dispatch(openModal())} className="cursor-pointer">{t.cart}</p>
+          <Link href="/settings">{t.settings}</Link>
         </nav>
       </div>
     </header>

@@ -1,11 +1,15 @@
 import { useCurrency } from "@/context/CurrencyContext";
+import { useLanguage } from "@/context/LanguageContext";
 import { convertPrice, formatPrice } from "@/lib/product";
+import { translations } from "@/lib/translations";
 import { ProductType } from "@/types/ProductType";
 import Image from "next/image"
 import Link from "next/link";
 
 export default function ListCard({ product }: { product: ProductType }){
   const { currency } = useCurrency();
+    const { language } = useLanguage();
+    const t = translations[language];
 
   return(
     <div className="w-full lg:w-55 h-[260px] md:h-75 lg:h-[370px] p-2 md:p-3 border border-[#CCCCCC] rounded-xl flex flex-col gap-2 md:gap-3">
@@ -42,7 +46,7 @@ export default function ListCard({ product }: { product: ProductType }){
           </div>
         </div>
         <Link href={`/product/${product.id}`} className="w-full h-max py-1.5 rounded-sm text-center bg-black text-white text-[10px] md:text-xs cursor-pointer">
-          Перейти до товару
+          {t.goToProduct}
         </Link>
       </div>
     </div>

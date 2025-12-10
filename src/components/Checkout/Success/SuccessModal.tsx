@@ -1,5 +1,7 @@
 "use client"
 
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/lib/translations";
 import { clearCartItems } from "@/store/slices/cartSlice";
 import { setCity, setDeliveryMethod, setDeliveryWay, setPaymentMethod } from "@/store/slices/checkoutSlice";
 import { useEffect } from "react"
@@ -7,6 +9,8 @@ import { useDispatch } from "react-redux";
 
 export default function SuccessModal(){
   const dispatch = useDispatch();
+  const { language } = useLanguage();
+  const t = translations[language];
 
   useEffect(() => {
     dispatch(setCity("Миколаїв"))
@@ -25,7 +29,7 @@ export default function SuccessModal(){
         text-xl
         `}
     >
-    Вітаємо з покупкою!
+    {t.congrats}
     </div>
   )
 }
