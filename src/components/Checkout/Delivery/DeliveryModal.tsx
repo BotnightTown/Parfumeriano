@@ -1,3 +1,6 @@
+"use client"
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/lib/translations";
 import { setCity, setDeliveryMethod, setDeliveryWay } from "@/store/slices/checkoutSlice";
 import { setCheckoutStep } from "@/store/slices/uiSlice";
 import { RootState } from "@/store/store";
@@ -7,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 export default function DeliveryModal(){
   const dispatch = useDispatch();
   const { city, deliveryMethod, deliveryWay } = useSelector((state: RootState) => state.checkout)
+  const { language } = useLanguage();
+  const t = translations[language];
 
   return(
     <div
@@ -23,7 +28,7 @@ export default function DeliveryModal(){
         >
           <RiArrowLeftLine />
         </button>
-        <p className="font-semibold text-xl md:text-2xl">Вибір способу доставки</p>
+        <p className="font-semibold text-xl md:text-2xl">{t.choosingADeliveryMethod}</p>
       </div>
       <div className="w-full h-max flex flex-col gap-3">
         <div className="relative inline-block">
@@ -32,9 +37,9 @@ export default function DeliveryModal(){
             value={city}
             onChange={(e) => dispatch(setCity(e.target.value))}
           >
-            <option value="Київ">Київ</option>
-            <option value="Миколаїв">Миколаїв</option>
-            <option value="Одеса">Одеса</option>
+            <option value="Kyiv">{t.Kyiv}</option>
+            <option value="Mykolayiv">{t.Mykolayiv}</option>
+            <option value="Odesa">{t.Odesa}</option>
           </select>
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
             <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -43,7 +48,7 @@ export default function DeliveryModal(){
           </div>
         </div>
         <div className="w-full h-max flex flex-col gap-3 text-sm md:text-base">
-          <p className="font-medium">Метод доставки</p>
+          <p className="font-medium">{t.deliveryMethod}</p>
           <div
             onClick={() => dispatch(setDeliveryMethod("self"))}
             className="w-max flex flex-row gap-3 cursor-pointer select-none"
@@ -55,7 +60,7 @@ export default function DeliveryModal(){
               checked={deliveryMethod === "self"}
               readOnly
             />
-            <span>Самовивіз</span>
+            <span>{t.pickup}</span>
           </div>
           <div
             onClick={() => dispatch(setDeliveryMethod("courier"))}
@@ -68,13 +73,13 @@ export default function DeliveryModal(){
               checked={deliveryMethod === "courier"}
               readOnly
             />
-            <span>Кур'єрська доставка</span>
+            <span>{t.courier}</span>
           </div>
         </div>
         {
           deliveryMethod !== "courier" && 
           <div className="w-full h-max flex flex-col gap-3 text-sm md:text-base">
-            <p className="font-medium">Спосіб доставки</p>
+            <p className="font-medium">{t.deliveryWay}</p>
             <div
               onClick={() => dispatch(setDeliveryWay("our_shop"))}
               className="w-max flex flex-row gap-3 cursor-pointer select-none"
@@ -86,7 +91,7 @@ export default function DeliveryModal(){
                 checked={deliveryWay === "our_shop"}
                 readOnly
               />
-              <span>Самовивіз з наших магазинів</span>
+              <span>{t.pickupFromOurStores}</span>
             </div>
             <div
               onClick={() => dispatch(setDeliveryWay("nova_post"))}
@@ -99,18 +104,18 @@ export default function DeliveryModal(){
                 checked={deliveryWay === "nova_post"}
                 readOnly
               />
-              <span>Самовивіз з нової пошти</span>
+              <span>{t.pickupFromNovaPost}</span>
             </div>
           </div>
         }
       </div>
-        <button 
-        type="submit"
-        className="w-full h-max md:h-[50px] p-1 md:p-4 text-sm md:text-base font-medium border rounded-lg flex items-center justify-center cursor-pointer text-white bg-black"
-        onClick={() => dispatch(setCheckoutStep("order"))}
-        >
-          Вибрати
-        </button>
+      <button 
+      type="submit"
+      className="w-full h-max md:h-[50px] p-1 md:p-4 text-sm md:text-base font-medium border rounded-lg flex items-center justify-center cursor-pointer text-white bg-black"
+      onClick={() => dispatch(setCheckoutStep("order"))}
+      >
+        {t.choose}
+      </button>
     </div>
   )
 }

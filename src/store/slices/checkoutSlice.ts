@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  city: "Київ",
+  city: "Kyiv",
   deliveryMethod: "courier",
   deliveryWay: "our_shop",
   paymentMethod: "google_pay"

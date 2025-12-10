@@ -1,8 +1,15 @@
+"use client"
+
 import Image from "next/image"
 import { ProductType } from "@/types/ProductType"
 import Link from "next/link"
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/lib/translations";
 
 export default function NewProduct({ reverse, product }: { reverse?: boolean, product: ProductType }) {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   return (
     <article
       className={
@@ -35,7 +42,7 @@ export default function NewProduct({ reverse, product }: { reverse?: boolean, pr
           <p>{product.attributes?.stability} stability</p>
         </div>
         <Link href={`/product/${product.id}`} className="w-max h-max py-2 px-6 rounded-sm text-center bg-black text-white text-xs md:text-sm lg:text-base cursor-pointer">
-          Перейти до товару
+          {t.goToProduct}
         </Link>
       </div>
     </article>

@@ -7,11 +7,16 @@ import carouselJson from "@/data/carousel.json"
 
 import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/lib/translations";
 
 export default function Carousel(){
   const [slides, setSlides] = useState<CarouselType[]>([]);
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const carousel: CarouselType[] = carouselJson;
+  const { language } = useLanguage();
+  const t = translations[language];
+
   useEffect(() => {
     setSlides(carousel);
   }, []);
@@ -28,6 +33,12 @@ export default function Carousel(){
     const interval = setInterval(increase, 13500);
     return () => clearInterval(interval);
   }, [slides]);
+
+  const descriptionTranslate: Record<string, string> = {
+    "Легка нотка кремового аромату доповнить твій образ!" : t.description1,
+    "М'який і ніжний аромат створює відчуття тепла та затишку." : t.description2,
+    "Ідеальний баланс солодких і фруктових нот для щоденного настрою." : t.description3,
+  }
 
   return(
     <article className="relative w-full h-50 md:h-100">
@@ -51,7 +62,7 @@ export default function Carousel(){
         >
           <FaArrowLeft />
         </button>
-        <p className="h-max">{slides[currentSlide]?.description}</p>
+        <p className="h-max">{descriptionTranslate[slides[currentSlide]?.description]}</p>
         <button 
           className="cursor-pointer hidden md:flex justify-center items-center md:max-w-20 md:w-full h-full" 
           onClick={increase}

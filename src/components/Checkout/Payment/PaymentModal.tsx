@@ -1,3 +1,6 @@
+'use client'
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/lib/translations";
 import { setPaymentMethod } from "@/store/slices/checkoutSlice";
 import { setCheckoutStep } from "@/store/slices/uiSlice";
 import { RootState } from "@/store/store";
@@ -7,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 export default function PaymentModal(){
   const dispatch = useDispatch();
   const { paymentMethod } = useSelector((state: RootState) => state.checkout)
+  const { language } = useLanguage();
+  const t = translations[language];
   
   return(
     <div
@@ -23,7 +28,7 @@ export default function PaymentModal(){
         >
           <RiArrowLeftLine />
         </button>
-        <p className="font-semibold text-xl md:text-2xl">Вибір способу оплати</p>
+        <p className="font-semibold text-xl md:text-2xl">{t.choosingAPaymentMethod}</p>
       </div>
       <div className="w-full h-max flex flex-col gap-3 text-sm md:text-base">
         <div
@@ -37,7 +42,7 @@ export default function PaymentModal(){
             checked={paymentMethod === "receiving"}
             readOnly
           />
-          <span>Оплата під час отримання товару</span>
+          <span>{t.paymentUponReceiptOfGoods}</span>
         </div>
         <div
           onClick={() => dispatch(setPaymentMethod("google_pay"))}
@@ -63,7 +68,7 @@ export default function PaymentModal(){
             checked={paymentMethod === "cash"}
             readOnly
           />
-          <span>Безготівковий для фізичних осіб</span>
+          <span>{t.cashlessForIndividuals}</span>
         </div>
       </div>
       <button 
@@ -71,7 +76,7 @@ export default function PaymentModal(){
       className="w-full h-max md:h-[50px] p-1 md:p-4 text-sm md:text-base font-medium border rounded-lg flex items-center justify-center cursor-pointer text-white bg-black"
       onClick={() => dispatch(setCheckoutStep("order"))}
       >
-        Вибрати
+        {t.choose}
       </button>
     </div>
   )
