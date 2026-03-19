@@ -9,9 +9,11 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@prisma/adapter-mssql": "^7.5.0",
+    "@prisma/client": "^7.5.0",
     "@reduxjs/toolkit": "^2.10.1",
     "@uidotdev/usehooks": "^2.4.1",
-    "dotenv": "^17.2.3",
+    "axios": "^1.13.6",
     "fast-sort": "^3.4.1",
     "next": "16.0.7",
     "react": "19.2.1",
@@ -25,8 +27,10 @@
     "@types/node": "^20",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
+    "dotenv": "^17.3.1",
     "eslint": "^9",
     "eslint-config-next": "16.0.7",
+    "prisma": "^7.5.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   },

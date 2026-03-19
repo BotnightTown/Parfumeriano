@@ -1,55 +1,58 @@
-'use client'
+"use client";
 
 import { useEffect, useState } from "react";
-import { notFound, useParams } from "next/navigation"
-import { useDispatch, useSelector } from "react-redux";
-import { convertPrice, formatPrice, getProductById } from "@/lib/product";
-import Image from "next/image"
+import { notFound, useParams } from "next/navigation";
+import { convertPrice, formatPrice } from "@/lib/product";
+import Image from "next/image";
 import { ProductType } from "@/types/ProductType";
 import { useCurrency } from "@/context/CurrencyContext";
 import { addItemToCart } from "@/store/slices/cartSlice";
 import { useLanguage } from "@/context/LanguageContext";
 import { translations } from "@/lib/translations";
-import { RootState } from "@/store/store";
 import EditProductModal from "@/components/Admin/EditProductModal";
 import DeleteProductModal from "@/components/Admin/DeleteProductModal";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import axios from "axios";
+import Skeleton from "./skeleton";
 
-
-export default function ProductPage(){
+export default function ProductPage() {
   const dispatch = useDispatch();
   const [isSign, setIsSign] = useState<boolean>(true);
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [product, setProduct] = useState<ProductType | null>(null);
-  const [selectedImage, setSelectedImage] = useState<string>("/images/default_image.jpg");
+  const [selectedImage, setSelectedImage] = useState<string>(
+    "/images/default_image.jpg",
+  );
+  const [loading, setLoading] = useState<boolean>(true);
   const { currency } = useCurrency();
   const { language } = useLanguage();
   const params = useParams<{ productId: string }>();
-  const products = useSelector((s: RootState) => s.adminProducts.products);
-  const isAdmin = useSelector((s: RootState) => s.admin.isAdmin)
+  const isAdmin = useSelector((s: RootState) => s.admin.isAdmin);
   const t = translations[language];
-  
-  useEffect(() => {
-    const data = getProductById(Number(params.productId), products)
-    if(!data){
-      notFound();
-    }
-    setProduct(data);
-  }, [products, params.productId])
 
   useEffect(() => {
-    if (product?.images.main) {
-      setSelectedImage(product.images.main);
-    }
-  }, [product]);
+    axios
+      .get<ProductType>(`/api/products/${params.productId}`)
+      .then(({ data }) => {
+        setProduct(data);
+        setSelectedImage(data.images.main ?? "/images/default_image.jpg");
+      })
+      .catch(() => notFound())
+      .finally(() => setLoading(false));
+  }, [params.productId]);
 
-  function handleAddToCart(): void{
-    if(product === null) return;
-    dispatch(addItemToCart({...product, quantity: 1}))
+  function handleAddToCart(): void {
+    if (product === null) return;
+    dispatch(addItemToCart({ ...product, quantity: 1 }));
   }
 
-  return(
-    <main className="w-full min-h-full h-max px-0 md:px-10 lg:px-20 flex flex-col md:gap-10">
+  if (loading) return <Skeleton />;
+  if (!product) return notFound();
+
+  return (
+    <main className="w-full flex-1 px-0 md:px-10 lg:px-20 flex flex-col md:gap-10">
       <section className="w-full h-max md:h-[345px] flex flex-col md:grid md:grid-cols-2 items-center gap-2.5">
         <div className="w-full h-max flex flex-col gap-2.5">
           <div className="w-full h-[230px] md:h-[250px] flex justify-center">
@@ -93,107 +96,153 @@ export default function ProductPage(){
           <div className="w-full h-max flex flex-col gap-1 items-center md:items-start">
             <p className="text-xs md:text-sm text-gray-700">{product?.brand}</p>
             <p className="text-xl md:text-2xl">{product?.name}</p>
-            <p className="text-xs md:text-sm text-gray-700">{product?.attributes?.type}</p>
+            <p className="text-xs md:text-sm text-gray-700">
+              {product?.attributes?.type}
+            </p>
           </div>
           <div className="w-full h-max flex flex-row gap-2 items-end">
-            {product?.price.sale && product?.price.sale < product?.price.normal ? (
+            {product?.price.sale &&
+            product?.price.sale < product?.price.normal ? (
               <>
-                <p className="text-base md:text-xl font-semibold text-red-600">{formatPrice(convertPrice(Number(product?.price.sale), currency), currency)}</p>
-                <p className="text-sm md:text-base font-normal text-gray-600 line-through">{formatPrice(convertPrice(Number(product?.price.normal), currency), currency)}</p>
+                <p className="text-base md:text-xl font-semibold text-red-600">
+                  {formatPrice(
+                    convertPrice(Number(product?.price.sale), currency),
+                    currency,
+                  )}
+                </p>
+                <p className="text-sm md:text-base font-normal text-gray-600 line-through">
+                  {formatPrice(
+                    convertPrice(Number(product?.price.normal), currency),
+                    currency,
+                  )}
+                </p>
               </>
             ) : (
-                <p className="text-base md:text-xl font-semibold">{formatPrice(convertPrice(Number(product?.price.normal), currency), currency)}</p>
+              <p className="text-base md:text-xl font-semibold">
+                {formatPrice(
+                  convertPrice(Number(product?.price.normal), currency),
+                  currency,
+                )}
+              </p>
             )}
           </div>
           <div className="relative inline-block">
             <select className="w-full h-9 px-4 pr-8 rounded-sm border border-gray-500 text-sm appearance-none cursor-pointer">
-              {product?.capacity.map((capacity, index)=>(
-                <option value={capacity} key={index}>{capacity}ml</option>
+              {product?.capacity.map((capacity, index) => (
+                <option value={capacity} key={index}>
+                  {capacity}ml
+                </option>
               ))}
             </select>
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
-              <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              <svg
+                className="w-4 h-4 text-gray-700"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
             </div>
           </div>
-          {
-            isAdmin ? (
-              <div className="w-full flex flex-row gap-3">
-                <button
-                  className="w-full h-9 flex items-center justify-center bg-black text-white font-medium text-sm rounded-sm cursor-pointer"
-                  onClick={()=>setIsEditModalOpen(true)}
-                >
-                  Редагувати
-                </button>
-                <button
-                  className="w-full h-9 flex items-center justify-center bg-black text-white font-medium text-sm rounded-sm cursor-pointer"
-                  onClick={()=>setIsDeleteModalOpen(true)}
-                >
-                  Видалити
-                </button>
-              </div>
-            ) : (
+          {isAdmin ? (
+            <div className="w-full flex flex-row gap-3">
               <button
                 className="w-full h-9 flex items-center justify-center bg-black text-white font-medium text-sm rounded-sm cursor-pointer"
-                onClick={handleAddToCart}
+                onClick={() => setIsEditModalOpen(true)}
               >
-                {t.buy}
+                Редагувати
               </button>
-            )
-          }
+              <button
+                className="w-full h-9 flex items-center justify-center bg-black text-white font-medium text-sm rounded-sm cursor-pointer"
+                onClick={() => setIsDeleteModalOpen(true)}
+              >
+                Видалити
+              </button>
+            </div>
+          ) : (
+            <button
+              className="w-full h-9 flex items-center justify-center bg-black text-white font-medium text-sm rounded-sm cursor-pointer"
+              onClick={handleAddToCart}
+            >
+              {t.buy}
+            </button>
+          )}
         </div>
       </section>
 
       <section className="w-full max py-5 grid grid-cols-2 gap-2.5 md:gap-15 lg:gap-25 justify-center md:border border-gray-300 rounded-xl">
         <div className="w-full h-full flex flex-col items-end gap-4 p-4 text-sm lg:text-base *:cursor-pointer">
-          <button 
-          className="w-max"
-          onClick={()=>setIsSign(true)}
-          >
+          <button className="w-max" onClick={() => setIsSign(true)}>
             {t.characteristics}
           </button>
-          <button 
+          <button
             className="w-max text-gray-600"
-            onClick={()=>setIsSign(false)}
+            onClick={() => setIsSign(false)}
           >
             {t.description}
-            </button>
+          </button>
         </div>
         {isSign ? (
           <ul className="w-max min-h-60 h-max py-4 flex flex-col gap-1 text-sm lg:text-base">
-            <li><span className="font-semibold">{t.premiere}:</span> {product?.year}</li>
-            <li><span className="font-semibold">{t.brand}:</span> {product?.brand}</li>
-            <li><span className="font-semibold">{t.type}:</span> {product?.attributes?.type}</li>
-            <li><span className="font-semibold">{t.capacity}:</span> {product?.capacity.join("ml, ") + "ml"}</li>
-            <li><span className="font-semibold">{t.gender}:</span> {product?.attributes?.gender}</li>
-            <li><span className="font-semibold">{t.classification}:</span> {product?.attributes?.classification}</li>
-            <li><span className="font-semibold">{t.aroma}:</span> {product?.attributes?.aroma}</li>
-            <li><span className="font-semibold">Класифікація:</span> {product?.attributes?.classification}</li>
+            <li>
+              <span className="font-semibold">{t.premiere}:</span>{" "}
+              {product?.year}
+            </li>
+            <li>
+              <span className="font-semibold">{t.brand}:</span> {product?.brand}
+            </li>
+            <li>
+              <span className="font-semibold">{t.type}:</span>{" "}
+              {product?.attributes?.type}
+            </li>
+            <li>
+              <span className="font-semibold">{t.capacity}:</span>{" "}
+              {product?.capacity.join("ml, ") + "ml"}
+            </li>
+            <li>
+              <span className="font-semibold">{t.gender}:</span>{" "}
+              {product?.attributes?.gender}
+            </li>
+            <li>
+              <span className="font-semibold">{t.classification}:</span>{" "}
+              {product?.attributes?.classification}
+            </li>
+            <li>
+              <span className="font-semibold">{t.aroma}:</span>{" "}
+              {product?.attributes?.aroma}
+            </li>
+            <li>
+              <span className="font-semibold">Класифікація:</span>{" "}
+              {product?.attributes?.classification}
+            </li>
           </ul>
         ) : (
-          <p className="w-full min-h-60 h-max text-sm lg:text-base py-4">{product?.description}</p>   
+          <p className="w-full min-h-60 h-max text-sm lg:text-base py-4">
+            {product?.description}
+          </p>
         )}
-        
-        {
-          isEditModalOpen && (
-            <EditProductModal 
-              isModalOpen={isEditModalOpen} 
-              setIsModalOpen={setIsEditModalOpen}
-              product={product}
-            />
-          )
-        }
-        {
-          isDeleteModalOpen && (
-            <DeleteProductModal 
-              isModalOpen={isDeleteModalOpen} 
-              setIsModalOpen={setIsDeleteModalOpen}
-              product={product}
-            />
-          )
-        }
+
+        {isEditModalOpen && (
+          <EditProductModal
+            isModalOpen={isEditModalOpen}
+            setIsModalOpen={setIsEditModalOpen}
+            product={product}
+          />
+        )}
+        {isDeleteModalOpen && (
+          <DeleteProductModal
+            isModalOpen={isDeleteModalOpen}
+            setIsModalOpen={setIsDeleteModalOpen}
+            product={product}
+          />
+        )}
       </section>
     </main>
-  )
+  );
 }
