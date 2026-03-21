@@ -5,36 +5,15 @@ import { useCurrency } from "@/context/CurrencyContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { translations } from "@/lib/translations";
 import { loginAdmin, logoutAdmin } from "@/store/slices/adminSlice";
-import { RootState } from "@/store/store";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
-const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
+import { useDispatch } from "react-redux";
 
 export default function SettingsPage() {
   const { currency, setCurrency } = useCurrency();
   const { language, setLanguage } = useLanguage();
-  const isAdmin = useSelector((s: RootState) => s.admin.isAdmin);
   const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
   const t = translations[language];
-
-  const handleAdminLogin = () => {
-    const password = prompt(`${t.inputAdminPassword}`);
-    if (password === ADMIN_PASSWORD) {
-      dispatch(loginAdmin());
-      localStorage.setItem("isAdmin", JSON.stringify(true));
-      alert(`${t.adminModeEnabled}`);
-    } else {
-      alert(`${t.wrongPassword}`);
-    }
-  };
-
-  const handleAdminLogout = () => {
-    dispatch(logoutAdmin());
-    localStorage.setItem("isAdmin", JSON.stringify(false));
-    alert(`${t.adminModeDisabled}`);
-  };
 
   return (
     <main className="w-full flex-1 p-2.5 md:px-10 lg:px-20 flex flex-col gap-5 md:gap-10">
@@ -134,36 +113,6 @@ export default function SettingsPage() {
           </label>
         </div>
       </div> */}
-      {isAdmin ? (
-        <div className="flex flex-col gap-5">
-          <button
-            onClick={handleAdminLogout}
-            className="w-max border-2 px-4 py-2 rounded-md bg-white text-black font-semibold cursor-pointer"
-          >
-            {t.disableAdminMode}
-          </button>
-          <button
-            onClick={() => setIsAddModalOpen(true)}
-            className="w-max border px-4 py-2 rounded-md bg-black text-white cursor-pointer"
-          >
-            {t.addNewProduct}
-          </button>
-        </div>
-      ) : (
-        <button
-          onClick={handleAdminLogin}
-          className="w-max border px-4 py-2 rounded-md bg-black text-white cursor-pointer"
-        >
-          {t.enterAdminMode}
-        </button>
-      )}
-
-      {isAddModalOpen && isAdmin && (
-        <AddProductModal
-          isModalOpen={isAddModalOpen}
-          setIsModalOpen={setIsAddModalOpen}
-        />
-      )}
     </main>
   );
 }

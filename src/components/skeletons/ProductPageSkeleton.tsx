@@ -1,6 +1,6 @@
 export default function Skeleton() {
   return (
-    <main className="w-full min-h-full h-max px-0 md:px-10 lg:px-20 flex flex-col md:gap-10 animate-pulse">
+    <main className="w-full flex-1 px-0 md:px-10 lg:px-20 flex flex-col md:gap-10 animate-pulse">
       <section className="w-full h-max md:h-[345px] flex flex-col md:grid md:grid-cols-2 items-center gap-2.5">
         <div className="w-full h-max flex flex-col gap-2.5">
           <div className="w-full h-[230px] md:h-[250px] flex justify-center">

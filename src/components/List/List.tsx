@@ -7,6 +7,7 @@ import Card from "./Card";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import { useFilterList } from "@/lib/product";
+import ListSkeleton from "../skeletons/ListSkeleton";
 
 type Props = {
   title: string;
@@ -50,6 +51,8 @@ export default function List({
   function prevPage() {
     setCurrentPage((prev) => Math.max(prev - 1, 0));
   }
+
+  if (products.length === 0) return <ListSkeleton />;
 
   return (
     <section className="flex flex-col gap-5 md:gap-10 py-5 px-6 md:px-0 items-center">

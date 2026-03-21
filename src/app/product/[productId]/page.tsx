@@ -12,9 +12,10 @@ import { translations } from "@/lib/translations";
 import EditProductModal from "@/components/Admin/EditProductModal";
 import DeleteProductModal from "@/components/Admin/DeleteProductModal";
 import { useDispatch, useSelector } from "react-redux";
+import { useSession } from "next-auth/react";
 import { RootState } from "@/store/store";
 import axios from "axios";
-import Skeleton from "./skeleton";
+import Skeleton from "@/components/skeletons/ProductPageSkeleton";
 
 export default function ProductPage() {
   const dispatch = useDispatch();
@@ -29,8 +30,10 @@ export default function ProductPage() {
   const { currency } = useCurrency();
   const { language } = useLanguage();
   const params = useParams<{ productId: string }>();
-  const isAdmin = useSelector((s: RootState) => s.admin.isAdmin);
   const t = translations[language];
+
+  const { data: session } = useSession();
+  const isAdmin = session?.user?.role === "admin";
 
   useEffect(() => {
     axios
@@ -216,10 +219,6 @@ export default function ProductPage() {
             <li>
               <span className="font-semibold">{t.aroma}:</span>{" "}
               {product?.attributes?.aroma}
-            </li>
-            <li>
-              <span className="font-semibold">Класифікація:</span>{" "}
-              {product?.attributes?.classification}
             </li>
           </ul>
         ) : (
