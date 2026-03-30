@@ -30,7 +30,7 @@ function Desktop() {
         <img
           src="/images/logo/Logo Dark.svg"
           alt="Parfumeriano logo"
-          className="w-[26px] h-8"
+          className="w-6.5 h-8"
         />
         <p className="text-xl font-medium">Parfumeriano</p>
       </Link>
@@ -39,6 +39,9 @@ function Desktop() {
         <NavLink href="/new">{t.new}</NavLink>
         <NavLink href="/sale">{t.sale}</NavLink>
         <NavLink href="/brands">{t.brands}</NavLink>
+        {session?.user?.role === "admin" && (
+          <NavLink href="/stats">Статистика</NavLink>
+        )}
       </nav>
       <div className="flex justify-end items-center gap-3 text-3xl *:cursor-pointer">
         <CartIcon />
@@ -80,7 +83,7 @@ function Mobile() {
   return (
     <header className="w-full sticky top-0 z-1000 bg-white text-black">
       <div className="w-full h-18 px-7 py-2 flex flex-row justify-between items-center border-b border-gray-200">
-        <Link href="/" className="w-[26px] h-8 cursor-pointer">
+        <Link href="/" className="w-6.5 h-8 cursor-pointer">
           <img
             src="/images/logo/Logo Dark.svg"
             alt="Parfumeriano logo"

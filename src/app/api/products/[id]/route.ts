@@ -63,9 +63,21 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
-  await prisma.productCapacities.deleteMany({
-    where: { ProductId: Number(id) },
+  const productId = Number(id);
+
+  await prisma.$transaction(async (tx) => {
+    await tx.productCapacities.deleteMany({
+      where: { ProductId: productId },
+    });
+
+    await tx.orderItems.deleteMany({
+      where: { ProductId: productId },
+    });
+
+    await tx.products.delete({
+      where: { ProductId: productId },
+    });
   });
-  await prisma.products.delete({ where: { ProductId: Number(id) } });
+
   return NextResponse.json({ success: true });
 }

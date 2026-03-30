@@ -56,9 +56,9 @@ export default function ProductPage() {
 
   return (
     <main className="w-full flex-1 px-0 md:px-10 lg:px-20 flex flex-col md:gap-10">
-      <section className="w-full h-max md:h-[345px] flex flex-col md:grid md:grid-cols-2 items-center gap-2.5">
+      <section className="w-full h-max md:h-86.25 flex flex-col md:grid md:grid-cols-2 items-center gap-2.5">
         <div className="w-full h-max flex flex-col gap-2.5">
-          <div className="w-full h-[230px] md:h-[250px] flex justify-center">
+          <div className="w-full h-57.5 md:h-62.5 flex justify-center">
             <Image
               src={selectedImage ?? "/images/default_image.jpg"}
               alt={product?.name ?? "No image"}
@@ -95,7 +95,7 @@ export default function ProductPage() {
           </div> */}
         </div>
 
-        <div className="w-[315px] h-max flex flex-col gap-2.5">
+        <div className="w-78.75 h-max flex flex-col gap-2.5">
           <div className="w-full h-max flex flex-col gap-1 items-center md:items-start">
             <p className="text-xs md:text-sm text-gray-700">{product?.brand}</p>
             <p className="text-xl md:text-2xl">{product?.name}</p>

@@ -21,7 +21,7 @@ export default function LoginPage() {
       redirect: false,
     });
     setLoading(false);
-    if (res?.error) setError("Невірний email або пароль");
+    if (res?.error) setError("Неправильний email або пароль");
     else router.push("/");
   }
 
