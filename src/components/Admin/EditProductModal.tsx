@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useLanguage } from "@/context/LanguageContext";
 import { translations } from "@/lib/translations";
@@ -7,28 +7,50 @@ import { ProductType } from "@/types/ProductType";
 import { useEffect, useState } from "react";
 import { RiCloseFill } from "react-icons/ri";
 import { useDispatch } from "react-redux";
-import { sort } from 'fast-sort';
+import { sort } from "fast-sort";
 
 type EditProductModalProps = {
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   product: ProductType | null;
-}
+};
 
-export default function EditProductModal({isModalOpen, setIsModalOpen, product}: EditProductModalProps ){
+export default function EditProductModal({
+  isModalOpen,
+  setIsModalOpen,
+  product,
+}: EditProductModalProps) {
   const [name, setName] = useState<string>(product?.name || "");
   const [brand, setBrand] = useState<string>(product?.brand || "");
   const [year, setYear] = useState<number>(product?.year || 0);
-  const [description, setDescription] = useState<string>(product?.description || "");
+  const [description, setDescription] = useState<string>(
+    product?.description || "",
+  );
   const [capacity, setCapacity] = useState<number[]>(product?.capacity || []);
-  const [image, setImage] = useState<string>(product?.images.main || "/images/default.jpg");
-  const [priceNormal, setPriceNormal] = useState<number>(product?.price.normal || 0);
+  const [image, setImage] = useState<string>(
+    product?.images.main || "/images/default.jpg",
+  );
+  const [priceNormal, setPriceNormal] = useState<number>(
+    product?.price.normal || 0,
+  );
   const [priceSale, setPriceSale] = useState<number>(product?.price.sale || 0);
-  const [type, setType] = useState<string | undefined>(product?.attributes?.type || "");
-  const [gender, setGender] = useState<string>(product?.attributes?.gender || "");
+  const [type, setType] = useState<string | undefined>(
+    product?.attributes?.type || "",
+  );
+  const [gender, setGender] = useState<string>(
+    product?.attributes?.gender || "",
+  );
   const [aroma, setAroma] = useState<string>(product?.attributes?.aroma || "");
-  const [stability, setStability] = useState<string>(product?.attributes?.stability || "");
-  const [classification, setClassification] = useState<string>(product?.attributes?.classification || "")
+  const [stability, setStability] = useState<string>(
+    product?.attributes?.stability || "",
+  );
+  const [classification, setClassification] = useState<string>(
+    product?.attributes?.classification || "",
+  );
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string>(
+    "/images/default.jpg",
+  );
 
   const dispatch = useDispatch();
   const { language } = useLanguage();
@@ -43,8 +65,10 @@ export default function EditProductModal({isModalOpen, setIsModalOpen, product}:
   }, [product]);
 
   const handleCapacityChange = (value: number, checked: boolean) => {
-    setCapacity(prev =>
-      checked ? sort([...prev, value]).asc() : sort(prev.filter(v => v !== value)).asc()
+    setCapacity((prev) =>
+      checked
+        ? sort([...prev, value]).asc()
+        : sort(prev.filter((v) => v !== value)).asc(),
     );
   };
 
@@ -52,7 +76,7 @@ export default function EditProductModal({isModalOpen, setIsModalOpen, product}:
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => resolve(reader.result as string);
-      reader.onerror = err => reject(err);
+      reader.onerror = (err) => reject(err);
       reader.readAsDataURL(file);
     });
   }
@@ -65,35 +89,41 @@ export default function EditProductModal({isModalOpen, setIsModalOpen, product}:
     setImage(base64);
   }
 
-
-  function submitChange(){
+  async function submitChange() {
     if (!product) return;
+    let imageUrl = image;
 
-    const updatedProduct : ProductType = {
-      ...product,
-      name: name,
-      brand: brand,
-      year: year,
-      description: description,
-      capacity,
-      images: {
-        ...product.images,
-        main: image,
-      },
-      price: {
-        normal: priceNormal,
-        sale: priceSale,
-      },
-      attributes: {
-        type: type,
-        gender: gender,
-        aroma: aroma,
-        stability: stability,
-        classification: classification,
-      },
-    };
+    if (imageFile) {
+      const formData = new FormData();
+      formData.append("file", imageFile);
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      imageUrl = data.url;
+    }
 
-    dispatch(updateProduct(updatedProduct))
+    await fetch(`/api/products/${product.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name,
+        brand,
+        year,
+        description,
+        capacity,
+        imageMain: imageUrl,
+        priceNormal,
+        priceSale: priceSale || null,
+        type,
+        gender,
+        aroma,
+        stability,
+        classification,
+      }),
+    });
+
     setIsModalOpen(false);
   }
 
@@ -103,9 +133,10 @@ export default function EditProductModal({isModalOpen, setIsModalOpen, product}:
     unisex: t.genderUnisex,
   };
 
-
   return (
-    <div className={`fixed inset-0 z-1000 transition-all ${isModalOpen ? "visible opacity-100" : "invisible opacity-0"}`}>
+    <div
+      className={`fixed inset-0 z-1000 transition-all ${isModalOpen ? "visible opacity-100" : "invisible opacity-0"}`}
+    >
       <div
         onClick={() => setIsModalOpen(false)}
         className="absolute inset-0 bg-black/50"
@@ -118,41 +149,47 @@ export default function EditProductModal({isModalOpen, setIsModalOpen, product}:
           `}
       >
         <div className="w-full flex justify-center">
-          <button 
+          <button
             onClick={() => setIsModalOpen(false)}
             className="w-8 h-8 text-2xl cursor-pointer absolute right-4 top-4 flex items-center justify-center"
           >
             <RiCloseFill />
           </button>
-          <p className="font-semibold text-base md:text-2xl">{t.informationUpdate}</p>
+          <p className="font-semibold text-base md:text-2xl">
+            {t.informationUpdate}
+          </p>
         </div>
         <div className="max-h-[70vh] overflow-y-auto pr-2">
           <ul className="w-full min-h-60 h-max py-4 flex flex-col gap-1 text-sm lg:text-base">
-            <li><span className="font-semibold">{t.name}: </span>
-              <input 
+            <li>
+              <span className="font-semibold">{t.name}: </span>
+              <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(String(e.target.value))}
                 className="border text-black px-2 p-0.5 rounded"
               />
             </li>
-            <li><span className="font-semibold">{t.brand}: </span>
-              <input 
+            <li>
+              <span className="font-semibold">{t.brand}: </span>
+              <input
                 type="text"
                 value={brand}
                 onChange={(e) => setBrand(String(e.target.value))}
                 className="border text-black px-2 p-0.5 rounded"
               />
             </li>
-            <li><span className="font-semibold">{t.premiere}: </span> 
-              <input 
+            <li>
+              <span className="font-semibold">{t.premiere}: </span>
+              <input
                 type="number"
                 value={year}
                 onChange={(e) => setYear(Number(e.target.value))}
                 className="border text-black px-2 p-0.5 rounded"
               />
             </li>
-            <li><span className="font-semibold">{t.description}: </span>
+            <li>
+              <span className="font-semibold">{t.description}: </span>
               <textarea
                 className="max-w-100 w-full h-20 border text-black px-2 p-0.5 rounded"
                 value={description}
@@ -164,14 +201,16 @@ export default function EditProductModal({isModalOpen, setIsModalOpen, product}:
             <li>
               <span className="font-semibold">{t.capacity}: </span>
               <ul className="flex flex-row gap-3">
-                {[25, 50, 100, 150, 200, 250, 500].map(val => (
+                {[25, 50, 100, 150, 200, 250, 500].map((val) => (
                   <li key={val}>
                     <input
                       type="checkbox"
                       name="capacity"
                       id={val.toString()}
                       checked={capacity.includes(val)}
-                      onChange={e => handleCapacityChange(val, e.target.checked)}
+                      onChange={(e) =>
+                        handleCapacityChange(val, e.target.checked)
+                      }
                     />
                     <label htmlFor={val.toString()}> {val}</label>
                   </li>
@@ -188,25 +227,27 @@ export default function EditProductModal({isModalOpen, setIsModalOpen, product}:
                 className="border text-black px-2 p-0.5 rounded"
               />
 
-              {image && (
+              {imagePreview && (
                 <img
-                  src={image}
+                  src={imagePreview}
                   alt="Preview"
                   className="w-32 h-32 object-cover border rounded"
                 />
               )}
             </li>
 
-            <li><span className="font-semibold">{t.priceNormal}: </span> 
-              <input 
+            <li>
+              <span className="font-semibold">{t.priceNormal}: </span>
+              <input
                 type="number"
                 value={priceNormal}
                 onChange={(e) => setPriceNormal(Number(e.target.value))}
                 className="border text-black px-2 p-0.5 rounded"
               />
             </li>
-            <li><span className="font-semibold">{t.priceSale}: </span> 
-              <input 
+            <li>
+              <span className="font-semibold">{t.priceSale}: </span>
+              <input
                 type="number"
                 value={priceSale}
                 onChange={(e) => setPriceSale(Number(e.target.value))}
@@ -215,7 +256,7 @@ export default function EditProductModal({isModalOpen, setIsModalOpen, product}:
             </li>
             <li>
               <span className="font-semibold">{t.type}: </span>
-              <input 
+              <input
                 type="text"
                 value={type}
                 onChange={(e) => setType(String(e.target.value))}
@@ -225,22 +266,23 @@ export default function EditProductModal({isModalOpen, setIsModalOpen, product}:
             <li>
               <span className="font-semibold">{t.gender}: </span>
               <ul>
-                {["woman", "man", "unisex"].map(val => (
+                {["woman", "man", "unisex"].map((val) => (
                   <li key={val}>
-                    <input 
+                    <input
                       type="radio"
                       name="gender"
                       id={val}
                       checked={gender === val}
                       onChange={() => setGender(val)}
-                    /> <label htmlFor={val}> {genderLabels[val]}</label>
+                    />{" "}
+                    <label htmlFor={val}> {genderLabels[val]}</label>
                   </li>
                 ))}
               </ul>
             </li>
             <li>
               <span className="font-semibold">{t.aroma}: </span>
-              <input 
+              <input
                 type="text"
                 value={aroma}
                 onChange={(e) => setAroma(String(e.target.value))}
@@ -249,7 +291,7 @@ export default function EditProductModal({isModalOpen, setIsModalOpen, product}:
             </li>
             <li>
               <span className="font-semibold">{t.stability}: </span>
-              <input 
+              <input
                 type="text"
                 value={stability}
                 onChange={(e) => setStability(String(e.target.value))}
@@ -258,7 +300,7 @@ export default function EditProductModal({isModalOpen, setIsModalOpen, product}:
             </li>
             <li>
               <span className="font-semibold">{t.classification}: </span>
-              <input 
+              <input
                 type="text"
                 value={classification}
                 onChange={(e) => setClassification(String(e.target.value))}
@@ -267,14 +309,14 @@ export default function EditProductModal({isModalOpen, setIsModalOpen, product}:
             </li>
           </ul>
         </div>
-        <button 
-        type="submit"
-        className="w-full h-max md:h-[50px] p-1 md:p-4 text-sm md:text-base font-medium border rounded-lg flex items-center justify-center cursor-pointer text-white bg-black"
-        onClick={submitChange}
+        <button
+          type="submit"
+          className="w-full h-max md:h-[50px] p-1 md:p-4 text-sm md:text-base font-medium border rounded-lg flex items-center justify-center cursor-pointer text-white bg-black"
+          onClick={submitChange}
         >
           {t.submitChange}
         </button>
       </div>
     </div>
-  )
+  );
 }

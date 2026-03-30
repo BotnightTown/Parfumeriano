@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlserver"
+}
+
+model Capacities {
+  CapacityId        Int                 @id(map: "PK__Capaciti__5AEEAE1A6B1CED87") @default(autoincrement())
+  Value             Int                 @unique(map: "UQ__Capaciti__07D9BBC26C1B34A9")
+  ProductCapacities ProductCapacities[]
+}
+
+model Customers {
+  CustomerId Int      @id(map: "PK_Customers") @default(autoincrement())
+  Name       String   @db.NVarChar(100)
+  Email      String   @unique(map: "UQ_Customers_Email") @db.NVarChar(150)
+  Password   String   @db.NVarChar(100)
+  role       String   @default("user_name()", map: "DEFAULT_Customers_role") @db.NVarChar(20)
+  Orders     Orders[]
+}
+
+model OrderItems {
+  OrderItemId Int      @id(map: "PK_OrderItems") @default(autoincrement())
+  OrderId     Int
+  ProductId   Int
+  Quantity    Int
+  Orders      Orders   @relation(fields: [OrderId], references: [OrderId], onUpdate: NoAction, map: "FK_OrderItems_Orders")
+  Products    Products @relation(fields: [ProductId], references: [ProductId], onUpdate: NoAction, map: "FK_OrderItems_Products")
+}
+
+model Orders {
+  OrderId    Int          @id(map: "PK_Orders") @default(autoincrement())
+  CustomerId Int
+  OrderDate  DateTime     @default(now(), map: "DEFAULT_Orders_OrderDate") @db.DateTime
+  OrderItems OrderItems[]
+  Customers  Customers    @relation(fields: [CustomerId], references: [CustomerId], map: "FK_Orders_Customers")
+
+  @@index([OrderDate], map: "IX_Orders_OrderDate")
+}
+
+model ProductCapacities {
+  ProductId  Int
+  CapacityId Int
+  Capacities Capacities @relation(fields: [CapacityId], references: [CapacityId], onUpdate: NoAction, map: "FK__ProductCa__Capac__662B2B3B")
+  Products   Products   @relation(fields: [ProductId], references: [ProductId], onUpdate: NoAction, map: "FK__ProductCa__Produ__65370702")
+
+  @@id([ProductId, CapacityId], map: "PK__ProductC__01A22C2CF6168D08")
+}
+
+model Products {
+  ProductId         Int                 @id(clustered: false, map: "PK_Products") @default(autoincrement())
+  Name              String              @db.NVarChar(150)
+  Brand             String              @db.NVarChar(100)
+  Year              Int
+  Description       String              @db.NVarChar(Max)
+  NormalPrice       Decimal             @db.Decimal(10, 2)
+  SalePrice         Decimal?            @db.Decimal(10, 2)
+  ImageMain         String?             @db.NVarChar(Max)
+  ImageList         String?             @db.NVarChar(Max)
+  AttrType          String?             @db.NVarChar(100)
+  AttrGender        String?             @db.NVarChar(50)
+  AttrAroma         String?             @db.NVarChar(100)
+  AttrStability     String?             @db.NVarChar(100)
+  AttrClass         String?             @db.NVarChar(100)
+  OrderItems        OrderItems[]
+  ProductCapacities ProductCapacities[]
+
+  @@index([Brand], map: "IX_Products_Brand")
+  @@index([Brand, NormalPrice], map: "IX_Products_Brand_Price")
+  @@index([Brand, Year], map: "IX_Products_Brand_Year")
+}

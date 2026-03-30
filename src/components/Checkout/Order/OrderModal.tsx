@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useCurrency } from "@/context/CurrencyContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { convertPrice, formatPrice } from "@/lib/product";
@@ -8,28 +8,57 @@ import { setCheckoutStep } from "@/store/slices/uiSlice";
 import { RootState } from "@/store/store";
 import { RiArrowLeftLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
+import { useSession } from "next-auth/react";
+import axios from "axios";
+import { useState } from "react";
 
-export default function OrderModal(){
+export default function OrderModal() {
   const dispatch = useDispatch();
   const { currency } = useCurrency();
   const cartItems = useSelector((state: RootState) => state.cart.items);
-  const { city, deliveryMethod, paymentMethod } = useSelector((state: RootState) => state.checkout)
+  const { city, deliveryMethod, paymentMethod } = useSelector(
+    (state: RootState) => state.checkout,
+  );
   const { language } = useLanguage();
   const t = translations[language];
+  const { data: session } = useSession();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const totalPrice = cartItems.reduce((sum: number, item: CartItemType) => sum + (item.price.sale ? item.price.sale : item.price.normal) * item.quantity, 0);
-  
-  return(
-    <div
-      className={`absolute right-1/2 top-1/2 md:top-1/2 -translate-y-1/2 translate-x-1/2
-        w-[85%] md:w-150 p-4 rounded-[10px]
-        bg-white transition-transform duration-500
-        flex flex-col gap-5
-        `}
-    >
+  const totalPrice = cartItems.reduce(
+    (sum: number, item: CartItemType) =>
+      sum +
+      (item.price.sale ? item.price.sale : item.price.normal) * item.quantity,
+    0,
+  );
+
+  async function handlePay() {
+    if (!session) {
+      setError("Увійдіть в акаунт щоб оформити замовлення");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await axios.post("/api/orders", {
+        items: cartItems.map((item: CartItemType) => ({
+          productId: item.id,
+          quantity: item.quantity,
+        })),
+      });
+      dispatch(setCheckoutStep("success"));
+    } catch (err: any) {
+      setError(err.response?.data?.error ?? "Щось пішло не так");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div className="absolute right-1/2 top-1/2 md:top-1/2 -translate-y-1/2 translate-x-1/2 w-[85%] md:w-150 p-4 rounded-[10px] bg-white transition-transform duration-500 flex flex-col gap-5">
       <div className="w-full flex justify-center">
-        <button 
-          onClick={() => dispatch(setCheckoutStep("cart"))} 
+        <button
+          onClick={() => dispatch(setCheckoutStep("cart"))}
           className="w-8 h-8 text-2xl cursor-pointer absolute left-4 top-4 flex items-center justify-center"
         >
           <RiArrowLeftLine />
@@ -38,9 +67,18 @@ export default function OrderModal(){
       </div>
       <div className="w-full h-max flex flex-col gap-3">
         <div className="w-full h-max p-4 flex flex-col items-end gap-2.5 rounded-lg border border-gray-400">
-          <p className="w-full text-sm font-medium text-gray-700">{t.delivery}</p>
-          <div className="w-full text-sm font-medium text-gray-700">{ city }, {deliveryMethod === "courier" ? `${t.courier}` : deliveryMethod === "self" ? "адреса нашого магазину" : "адреса нової пошти"}</div>
-          <button 
+          <p className="w-full text-sm font-medium text-gray-700">
+            {t.delivery}
+          </p>
+          <div className="w-full text-sm font-medium text-gray-700">
+            {city},{" "}
+            {deliveryMethod === "courier"
+              ? `${t.courier}`
+              : deliveryMethod === "self"
+                ? "адреса нашого магазину"
+                : "адреса нової пошти"}
+          </div>
+          <button
             className="w-max cursor-pointer font-medium"
             onClick={() => dispatch(setCheckoutStep("delivery"))}
           >
@@ -48,9 +86,17 @@ export default function OrderModal(){
           </button>
         </div>
         <div className="w-full h-max p-4 flex flex-col items-end gap-2.5 rounded-lg border border-gray-400">
-          <p className="w-full text-sm font-medium text-gray-700">{t.payment}</p>
-          <div className="w-full text-sm font-medium text-gray-700">{paymentMethod === "receiving" ? `${t.paymentUponReceiptOfGoods}` : paymentMethod === "google_pay" ? "Google pay" : `${t.cashlessForIndividuals}` }</div>
-          <button 
+          <p className="w-full text-sm font-medium text-gray-700">
+            {t.payment}
+          </p>
+          <div className="w-full text-sm font-medium text-gray-700">
+            {paymentMethod === "receiving"
+              ? `${t.paymentUponReceiptOfGoods}`
+              : paymentMethod === "google_pay"
+                ? "Google pay"
+                : `${t.cashlessForIndividuals}`}
+          </div>
+          <button
             className="w-max cursor-pointer font-medium"
             onClick={() => dispatch(setCheckoutStep("payment"))}
           >
@@ -59,18 +105,20 @@ export default function OrderModal(){
         </div>
         <div className="w-full flex flex-row justify-between">
           <p className="font-semibold text-base md:text-xl">{t.sum}</p>
-          <p className="font-semibold text-lg md:text-xl">{formatPrice(convertPrice(totalPrice, currency), currency)}</p>
+          <p className="font-semibold text-lg md:text-xl">
+            {formatPrice(convertPrice(totalPrice, currency), currency)}
+          </p>
         </div>
-        <div className="w-full h-max flex flex-row gap-2">
-          <button 
+        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+        <button
           type="submit"
-          className="w-full h-max md:h-[50px] p-1 md:p-4 text-sm md:text-base font-medium border rounded-lg flex items-center justify-center cursor-pointer text-white bg-black"
-          onClick={() => dispatch(setCheckoutStep("success"))}
-          >
-            {t.pay}
-          </button>
-        </div>
+          disabled={loading}
+          className="w-full h-max md:h-[50px] p-1 md:p-4 text-sm md:text-base font-medium border rounded-lg flex items-center justify-center cursor-pointer text-white bg-black disabled:bg-gray-300 disabled:cursor-default"
+          onClick={handlePay}
+        >
+          {loading ? "Обробка..." : t.pay}
+        </button>
       </div>
     </div>
-  )
+  );
 }

@@ -24,7 +24,7 @@ export const translations = {
     image: "Фото",
     premiere: "Прем'єра",
     brand: "Бренд",
-    type: "Група",
+    type: "Тип",
     capacity: "Об'єм",
     gender: "Стать",
     classification: "Класифікація",
@@ -69,7 +69,8 @@ export const translations = {
 
     description1: "Легка нотка кремового аромату доповнить твій образ!",
     description2: "М'який і ніжний аромат створює відчуття тепла та затишку.",
-    description3: "Ідеальний баланс солодких і фруктових нот для щоденного настрою.",
+    description3:
+      "Ідеальний баланс солодких і фруктових нот для щоденного настрою.",
 
     informationUpdate: "Оновлення інформації",
     priceNormal: "Звичайна ціна",
@@ -86,7 +87,7 @@ export const translations = {
     inputAdminPassword: "Введи пароль адміністратора",
     adminModeEnabled: "Режим адміністратора увімкнено",
     adminModeDisabled: "Режим адміністратора вимкнено",
-    wrongPassword: "Неправильний пароль"
+    wrongPassword: "Неправильний пароль",
   },
   en: {
     appearance: "Appearance",
@@ -127,7 +128,7 @@ export const translations = {
     total: "Total",
     continueShopping: "Continue shopping",
     goToPayment: "Go to payment",
-    
+
     choosingADeliveryMethod: "Choosing a delivery method",
     Kyiv: "Kyiv",
     Mykolayiv: "Mykolayiv",
@@ -157,26 +158,28 @@ export const translations = {
     genderUnisex: "Unisex",
 
     description1: "A light hint of creamy aroma will complement your look!",
-    description2: "The soft and delicate aroma creates a feeling of warmth and comfort.",
-    description3: "The perfect balance of sweet and fruity notes for your everyday mood.",
-    
+    description2:
+      "The soft and delicate aroma creates a feeling of warmth and comfort.",
+    description3:
+      "The perfect balance of sweet and fruity notes for your everyday mood.",
+
     informationUpdate: "Information update",
     priceNormal: "Normal price",
     priceSale: "Sale price",
     stability: "Stability",
     submitChange: "Submit change",
-    
+
     wantDeleteProduct: "Do you want to delete the product",
     addProduct: "Adding a product",
-    
+
     disableAdminMode: "Disable administrator mode",
     addNewProduct: "Add new product",
     enterAdminMode: "Enter administrator mode",
-    
+
     inputAdminPassword: "Enter administrator password",
     adminModeEnabled: "Administrator mode is enabled",
     adminModeDisabled: "Administrator mode is disabled.",
-    wrongPassword: "Wrong password"
+    wrongPassword: "Wrong password",
   },
   br: {
     appearance: "⠠⠁⠏⠏⠑⠜⠨⠑",
@@ -212,12 +215,12 @@ export const translations = {
     salesOnThisWeek: "⠠⠎⠁⠇⠑⠎⠀⠕⠝⠀⠹⠀⠺⠑⠑⠅",
     femaleAroma: "⠠⠋⠑⠍⠁⠇⠑⠀⠜⠕⠍⠁",
     maleAroma: "⠠⠍⠁⠇⠑⠀⠜⠕⠍⠁",
-    
+
     cartIsEmpty: "⠠⠉⠜⠞⠀⠊⠎⠀⠑⠍⠏⠞⠽",
     total: "⠠⠞⠕⠞⠁⠇",
     continueShopping: "⠠⠒⠞⠔⠥⠑⠀⠩⠕⠏⠏⠬",
     goToPayment: "⠠⠛⠀⠞⠕⠀⠏⠁⠽⠰⠞",
-    
+
     choosingADeliveryMethod: "⠠⠡⠕⠕⠎⠬⠀⠁⠀⠙⠑⠇⠊⠧⠻⠽⠀⠍⠑⠹⠕⠙",
     Kyiv: "⠠⠅⠽⠊⠧",
     Mykolayiv: "⠠⠍⠽⠅⠕⠇⠁⠽⠊⠧",
@@ -249,7 +252,7 @@ export const translations = {
     description1: "⠠⠁⠀⠇⠊⠣⠞⠀⠓⠔⠞⠀⠷⠀⠉⠗⠂⠍⠽⠀⠜⠕⠍⠁⠀⠺⠀⠉⠕⠍⠏⠇⠑⠰⠞⠀⠽⠗⠀⠇⠕⠕⠅⠖",
     description2: "⠠⠮⠀⠎⠷⠞⠀⠯⠀⠙⠑⠇⠊⠉⠁⠞⠑⠀⠜⠕⠍⠁⠀⠉⠗⠂⠞⠑⠎⠀⠁⠀⠋⠑⠑⠇⠬⠀⠷⠀⠺⠜⠍⠹⠀⠯⠀⠉⠕⠍⠿⠞⠲",
     description3: "⠠⠮⠀⠏⠻⠋⠑⠉⠞⠀⠃⠁⠇⠨⠑⠀⠷⠀⠎⠺⠑⠑⠞⠀⠯⠀⠋⠗⠥⠊⠞⠽⠀⠝⠕⠞⠑⠎⠀⠿⠀⠽⠗⠀⠐⠑⠽⠐⠙⠀⠍⠕⠕⠙⠲",
-    
+
     informationUpdate: "⠠⠔⠋⠕⠠⠔⠿⠍⠁⠰⠝⠀⠥⠏⠙⠁⠞⠑",
     priceNormal: "⠠⠝⠕⠗⠍⠁⠇⠀⠏⠗⠊⠉⠑",
     priceSale: "⠠⠎⠁⠇⠑⠀⠏⠗⠊⠉⠑",
@@ -258,14 +261,14 @@ export const translations = {
 
     wantDeleteProduct: "⠠⠙⠀⠽⠀⠺⠁⠝⠞⠀⠞⠕⠀⠙⠑⠇⠑⠞⠑⠀⠮⠀⠏⠗⠕⠙⠥⠉⠞",
     addProduct: "⠠⠁⠙⠙⠬⠀⠁⠀⠏⠗⠕⠙⠥⠉⠞",
-    
+
     disableAdminMode: "⠠⠲⠁⠃⠇⠑⠀⠁⠙⠍⠔⠊⠌⠗⠁⠞⠕⠗⠀⠍⠕⠙⠑",
     addNewProduct: "⠠⠁⠙⠙⠀⠝⠑⠺⠀⠏⠗⠕⠙⠥⠉⠞",
     enterAdminMode: "⠠⠢⠞⠻⠀⠁⠙⠍⠔⠊⠌⠗⠁⠞⠕⠗⠀⠍⠕⠙⠑",
-    
+
     inputAdminPassword: "⠠⠢⠞⠻⠀⠁⠙⠍⠔⠊⠌⠗⠁⠞⠕⠗⠀⠏⠁⠎⠎⠘⠺",
     adminModeEnabled: "⠠⠁⠙⠍⠔⠊⠌⠗⠁⠞⠕⠗⠀⠍⠕⠙⠑⠀⠊⠎⠀⠢⠁⠃⠇⠫",
     adminModeDisabled: "⠠⠁⠙⠍⠔⠊⠌⠗⠁⠞⠕⠗⠀⠍⠕⠙⠑⠀⠊⠎⠀⠲⠁⠃⠇⠫⠲",
-    wrongPassword: "⠠⠺⠗⠰⠛⠀⠏⠁⠎⠎⠘⠺"
+    wrongPassword: "⠠⠺⠗⠰⠛⠀⠏⠁⠎⠎⠘⠺",
   },
 };
