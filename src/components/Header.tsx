@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useMediaQuery } from "@uidotdev/usehooks";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal, toggleMobileMenu } from "@/store/slices/uiSlice";
 import { RootState } from "@/store/store";
@@ -14,7 +13,6 @@ import { RxHamburgerMenu, RxPerson } from "react-icons/rx";
 import CartIcon from "./ui/CartIcon";
 import { useLanguage } from "@/context/LanguageContext";
 import { translations } from "@/lib/translations";
-import { useEffect, useState } from "react";
 
 function Desktop() {
   const { language } = useLanguage();
@@ -177,14 +175,14 @@ function Mobile() {
 }
 
 export default function Header() {
-  const [mounted, setMounted] = useState(false);
-  const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null; // або скелетон хедера
-
-  return isSmallDevice ? <Mobile /> : <Desktop />;
+  return (
+    <>
+      <div className="hidden md:block">
+        <Desktop />
+      </div>
+      <div className="block md:hidden sticky top-0 z-50">
+        <Mobile />
+      </div>
+    </>
+  );
 }

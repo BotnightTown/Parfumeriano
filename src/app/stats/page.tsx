@@ -13,6 +13,7 @@ type BrandStats = {
   maxPrice: number;
   saleCount: number;
   totalOrders: number;
+  totalRevenue: number;
 };
 
 function BrandStatsSkeleton() {
@@ -97,6 +98,15 @@ export default function StatsPage() {
                     )}
                   </p>
                   <p className="text-xs text-gray-500">Максимальна ціна</p>
+                </div>
+                <div className="border rounded-lg p-3 flex flex-col gap-1">
+                  <p className="text-lg font-bold">
+                    {formatPrice(
+                      convertPrice(brand.totalRevenue, currency),
+                      currency,
+                    )}
+                  </p>
+                  <p className="text-xs text-gray-500">Виручка</p>
                 </div>
               </div>
             </div>
